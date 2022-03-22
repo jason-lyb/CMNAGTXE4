@@ -985,6 +985,9 @@ object Frm_Main: TFrm_Main
             Align = alTop
             BevelOuter = bvNone
             TabOrder = 2
+            ExplicitLeft = 5
+            ExplicitTop = 5
+            ExplicitWidth = 457
             object cxGroupBox1: TcxGroupBox
               Left = 0
               Top = 0
@@ -993,6 +996,7 @@ object Frm_Main: TFrm_Main
               Style.LookAndFeel.NativeStyle = False
               StyleDisabled.LookAndFeel.NativeStyle = False
               TabOrder = 0
+              ExplicitWidth = 457
               Height = 149
               Width = 455
               object lbWkSlip: TLabel
@@ -1754,6 +1758,9 @@ object Frm_Main: TFrm_Main
             Align = alBottom
             BevelOuter = bvNone
             TabOrder = 3
+            ExplicitLeft = 2
+            ExplicitTop = 471
+            ExplicitWidth = 463
             object Panel15: TPanel
               Left = 0
               Top = 0
@@ -1763,6 +1770,7 @@ object Frm_Main: TFrm_Main
               BevelOuter = bvNone
               ParentBackground = False
               TabOrder = 0
+              ExplicitWidth = 463
               DesignSize = (
                 461
                 35)
@@ -1818,7 +1826,7 @@ object Frm_Main: TFrm_Main
                 Visible = False
               end
               object btnChartA3: TcxButton
-                Left = 787
+                Left = 785
                 Top = 6
                 Width = 32
                 Height = 25
@@ -1827,6 +1835,7 @@ object Frm_Main: TFrm_Main
                 TabOrder = 2
                 Visible = False
                 OnClick = btnChartA3Click
+                ExplicitLeft = 787
               end
             end
             object cxGridA3C2: TcxGrid
@@ -6962,6 +6971,10 @@ object Frm_Main: TFrm_Main
           Color = clBtnFace
           ImageIndex = 0
           ParentColor = False
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object PnlManual: TPanel
             Left = 0
             Top = 27
@@ -8779,6 +8792,10 @@ object Frm_Main: TFrm_Main
       object cxTabSheet1: TcxTabSheet
         Caption = #53685#54868#44288#47532
         ImageIndex = 0
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object Panel8: TPanel
           Left = 0
           Top = 0
@@ -8804,6 +8821,10 @@ object Frm_Main: TFrm_Main
       object tsBtmMenu2: TcxTabSheet
         Caption = #48512#51116#51473#51204#54868
         ImageIndex = 1
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object Panel9: TPanel
           Left = 0
           Top = 0
@@ -9663,10 +9684,18 @@ object Frm_Main: TFrm_Main
       object tsBtmMenu5: TcxTabSheet
         Caption = #53084#51648#46020#48372#44592
         ImageIndex = 4
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
       end
       object tsBtmMenu6: TcxTabSheet
         Caption = #48512#51221#52712#49548#53084
         ImageIndex = 5
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
       end
       object tsBtmMenu7: TcxTabSheet
         Caption = #51649#50896#44277#51648
@@ -9867,6 +9896,10 @@ object Frm_Main: TFrm_Main
         Caption = #47700#45684#52286#44592
         ImageIndex = 8
         OnResize = tsBtmMenu8Resize
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
       end
       object tsBtmMenu9: TcxTabSheet
         Caption = #50741#49496#51221#48372
@@ -12225,7 +12258,7 @@ object Frm_Main: TFrm_Main
           object img2: TImage
             Left = 0
             Top = 0
-            Width = 18
+            Width = 16
             Height = 16
             Cursor = crHandPoint
             Align = alClient
@@ -12272,6 +12305,7 @@ object Frm_Main: TFrm_Main
             ShowHint = False
             OnClick = img2Click
             ExplicitTop = 1
+            ExplicitWidth = 18
           end
         end
         object PnlHelp: TcxGroupBox
@@ -12298,6 +12332,8 @@ object Frm_Main: TFrm_Main
             ParentColor = False
             Style.Color = 14155775
             Properties.Alignment.Vert = taVCenter
+            ExplicitTop = -4
+            ExplicitHeight = 58
             AnchorY = 34
           end
           object cxButton19: TcxButton
