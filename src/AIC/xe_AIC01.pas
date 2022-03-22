@@ -1,4 +1,4 @@
-unit xe_AIC01;
+﻿unit xe_AIC01;
 
 interface
 
@@ -256,7 +256,7 @@ implementation
 
 {$R *.dfm}
 
-// 깃허브 테스트
+// 깃허브 테스트 테스트
 
 uses xe_AIC02, xe_gnl, xe_gnl3, xe_Lib, xe_packet, xe_Func, xe_Msg, xe_Xml , xe_AIC10,
   xe_AIC09, Main, xe_Flash;
