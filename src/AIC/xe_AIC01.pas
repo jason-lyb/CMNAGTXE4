@@ -256,6 +256,8 @@ implementation
 
 {$R *.dfm}
 
+// ê¹ƒí—ˆë¸Œ í…ŒìŠ¤íŠ¸
+
 uses xe_AIC02, xe_gnl, xe_gnl3, xe_Lib, xe_packet, xe_Func, xe_Msg, xe_Xml , xe_AIC10,
   xe_AIC09, Main, xe_Flash;
 
@@ -266,24 +268,24 @@ procedure Tfrm_AIC01.btnExcelA3Click(Sender: TObject);
 begin
 	if cxGridAI3_List1.DataController.RecordCount = 0 then
   begin
-		GMessagebox('ÀÚ·á°¡ ¾ø½À´Ï´Ù.', CDMSI);
+		GMessagebox('ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.', CDMSI);
     Exit;
 	end;
 
   if GT_USERIF.Excel_Use = 'n' then
 	begin
-    GMessagebox('[¿¢¼¿´Ù¿î·ÎµåÇã¿ë] ±ÇÇÑÀÌ ¾ø½À´Ï´Ù. °ü¸®ÀÚ¿¡°Ô ¹®ÀÇ(±ÇÇÑ¿äÃ») ¹Ù¶ø´Ï´Ù.', CDMSI);
+    GMessagebox('[ì—‘ì…€ë‹¤ìš´ë¡œë“œí—ˆìš©] ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤. ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜(ê¶Œí•œìš”ì²­) ë°”ëë‹ˆë‹¤.', CDMSI);
 		Exit;
   end;
 
 	if (TCK_USER_PER.ACC_ExcelDown <> '1') then
 	begin
-    ShowMessage('[¿¢¼¿´Ù¿î·Îµå[Á¤»ê¸Ş´º]] ±ÇÇÑÀÌ ¾ø½À´Ï´Ù. °ü¸®ÀÚ¿¡°Ô ¹®ÀÇ(±ÇÇÑ¿äÃ») ¹Ù¶ø´Ï´Ù.');
+    ShowMessage('[ì—‘ì…€ë‹¤ìš´ë¡œë“œ[ì •ì‚°ë©”ë‰´]] ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤. ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜(ê¶Œí•œìš”ì²­) ë°”ëë‹ˆë‹¤.');
     Exit;
   end;
 
-	Frm_Main.sgExcel := 'AI-OB ¹èÂ÷Áö¿¬Äİ ÀÏº°ÇöÈ².xls';
-	Frm_Main.sgRpExcel := Format('È¸»ç>AI-OB ¹èÂ÷Áö¿¬Äİ ÀÏº°ÇöÈ²]%s°Ç', [GetMoneyStr(cxGridAI3_List1.DataController.RecordCount)]);
+	Frm_Main.sgExcel := 'AI-OB ë°°ì°¨ì§€ì—°ì½œ ì¼ë³„í˜„í™©.xls';
+	Frm_Main.sgRpExcel := Format('íšŒì‚¬>AI-OB ë°°ì°¨ì§€ì—°ì½œ ì¼ë³„í˜„í™©]%sê±´', [GetMoneyStr(cxGridAI3_List1.DataController.RecordCount)]);
 	Frm_Main.cxGridExcel := cxGrid2;
 	Frm_Main.bgExcelOPT := False;
 	Frm_Main.proc_excel(0);
@@ -306,7 +308,7 @@ begin
 
 		if GT_SEL_BRNO.GUBUN <> '1' then
 		begin
-			GMessagebox(PChar('ÁÂÃøÁö»ç¸¦ ¼±ÅÃÇÏ½Ê½Ã¿À.'), CDMSI);
+			GMessagebox(PChar('ì¢Œì¸¡ì§€ì‚¬ë¥¼ ì„ íƒí•˜ì‹­ì‹œì˜¤.'), CDMSI);
 			Exit;
 		end;
 
@@ -321,10 +323,10 @@ begin
 			Exit;
 		end;
 
-		if TCK_USER_PER.AIC_ScenarioSet <> '1' then  // È¸»ç : AI-OB ¹èÂ÷Áö¿¬Äİ ¼³Á¤
+		if TCK_USER_PER.AIC_ScenarioSet <> '1' then  // íšŒì‚¬ : AI-OB ë°°ì°¨ì§€ì—°ì½œ ì„¤ì •
 		begin
-			ShowMessage('[AI-OB ¹èÂ÷Áö¿¬Äİ ¼³Á¤] ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.'+#13#10+'°ü¸®ÀÚ¿¡°Ô ¹®ÀÇ(±ÇÇÑ¿äÃ») ¹Ù¶ø´Ï´Ù.' +#13#10+#13#10
-								+ '±ÇÇÑÇ×¸ñ >> È¸»ç : AI-OB ¹èÂ÷Áö¿¬Äİ ¼³Á¤');
+			ShowMessage('[AI-OB ë°°ì°¨ì§€ì—°ì½œ ì„¤ì •] ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤.'+#13#10+'ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜(ê¶Œí•œìš”ì²­) ë°”ëë‹ˆë‹¤.' +#13#10+#13#10
+								+ 'ê¶Œí•œí•­ëª© >> íšŒì‚¬ : AI-OB ë°°ì°¨ì§€ì—°ì½œ ì„¤ì •');
 			Exit;
 		end;
 
@@ -334,7 +336,7 @@ begin
 		try
 			if not RequestBasePaging(GetSel06('GET_BD_LIST', 'AI_OB_MNG.GET_BD_LIST', '1000', Param), slList, ErrCode, ErrMsg) then
 			begin
-				GMessagebox(Format('¹èÂ÷Áö¿¬Äİ ½Ã³ª¸®¿À ¼³Á¤ Á¶È¸ ¿À·ù'#13#10'[%d]%s', [ErrCode, ErrMsg]), CDMSI);
+				GMessagebox(Format('ë°°ì°¨ì§€ì—°ì½œ ì‹œë‚˜ë¦¬ì˜¤ ì„¤ì • ì¡°íšŒ ì˜¤ë¥˜'#13#10'[%d]%s', [ErrCode, ErrMsg]), CDMSI);
 				Screen.Cursor := crDefault;
 				btnSearchA1.Enabled := True;
 				proc_BtnEnable(True);
@@ -365,10 +367,10 @@ begin
 							try
 								for i := 0 to lst_Result.length - 1 do
 								begin
-									GetTextSeperationEx2('¦¢', lst_Result.item[i].attributes.getNamedItem('Value').Text, ls_Rcrd);
+									GetTextSeperationEx2('â”‚', lst_Result.item[i].attributes.getNamedItem('Value').Text, ls_Rcrd);
 									Application.ProcessMessages;
 
-									iRow := cxGridAI_List1.DataController.AppendRecord; // 1 Record Ãß°¡
+									iRow := cxGridAI_List1.DataController.AppendRecord; // 1 Record ì¶”ê°€
 									cxGridAI_List1.DataController.Values[iRow, 0] := false;
 									cxGridAI_List1.DataController.Values[iRow, 1] := IntToStr(iRow+1);
 									cxGridAI_List1.DataController.Values[iRow, 2] := ls_Rcrd[1];
@@ -379,24 +381,24 @@ begin
 									cxGridAI_List1.DataController.Values[iRow, 4] := ls_Rcrd[3];
 									cxGridAI_List1.DataController.Values[iRow, 5] := ls_Rcrd[4];
 									if ls_Rcrd[5] = 'y' then
-  									cxGridAI_List1.DataController.Values[iRow, 6] := '»ç¿ë'
+  									cxGridAI_List1.DataController.Values[iRow, 6] := 'ì‚¬ìš©'
                   else
-                    cxGridAI_List1.DataController.Values[iRow, 6] := '¹Ì»ç¿ë';
+                    cxGridAI_List1.DataController.Values[iRow, 6] := 'ë¯¸ì‚¬ìš©';
 									cxGridAI_List1.DataController.Values[iRow, 7] := ls_Rcrd[6];
 									cxGridAI_List1.DataController.Values[iRow, 8] := ls_Rcrd[7];
 									cxGridAI_List1.DataController.Values[iRow, 9] := ls_Rcrd[8];
 									cxGridAI_List1.DataController.Values[iRow,10] := ls_Rcrd[9];
 									if ls_Rcrd[11] = 'y' then
-									  cxGridAI_List1.DataController.Values[iRow,11] := '»ç¿ë'
+									  cxGridAI_List1.DataController.Values[iRow,11] := 'ì‚¬ìš©'
                   else
-                    cxGridAI_List1.DataController.Values[iRow,11] := '¹Ì»ç¿ë';
+                    cxGridAI_List1.DataController.Values[iRow,11] := 'ë¯¸ì‚¬ìš©';
 									cxGridAI_List1.DataController.Values[iRow,12] := ls_Rcrd[0];
 									cxGridAI_List1.DataController.Values[iRow,13] := ls_Rcrd[10];
 									cxGridAI_List1.DataController.Values[iRow,14] := ls_Rcrd[12];
 									if ls_Rcrd[13] = 'y' then
-  									cxGridAI_List1.DataController.Values[iRow,15] := '¿äÃ»'
+  									cxGridAI_List1.DataController.Values[iRow,15] := 'ìš”ì²­'
                   else
-                    cxGridAI_List1.DataController.Values[iRow,15] := '¿äÃ»¾ÈÇÔ';
+                    cxGridAI_List1.DataController.Values[iRow,15] := 'ìš”ì²­ì•ˆí•¨';
 
                   if Trim(ls_Rcrd[14]) = '' then
                     cxGridAI_List1.DataController.Values[iRow,16] := ''
@@ -414,13 +416,13 @@ begin
 							end;
 						end;
 					end;
-					if (cxGridAI_List1.DataController.RowCount > 0) and (cxGridAI_List1.DataController.Values[0, 3] = '') then //Áö»ç´Üµ¶¼³Á¤
+					if (cxGridAI_List1.DataController.RowCount > 0) and (cxGridAI_List1.DataController.Values[0, 3] = '') then //ì§€ì‚¬ë‹¨ë…ì„¤ì •
 					begin
 						btn_Add.Enabled := True;
 						btn_Update.Enabled := True;
 						btn_Delete.Enabled := True;
 					end else
-          if cxGridAI_List1.DataController.RowCount = 0 then //¼³Á¤ÀÌ ¾øÀ¸¸é
+          if cxGridAI_List1.DataController.RowCount = 0 then //ì„¤ì •ì´ ì—†ìœ¼ë©´
 					begin
 						btn_Add.Enabled := True;
 						btn_Update.Enabled := False;
@@ -463,10 +465,10 @@ begin
 			Exit;
 		end;
 
-		if TCK_USER_PER.AIC_ScenarioSet <> '1' then  // È¸»ç : AI-OB ¹èÂ÷Áö¿¬Äİ ¼³Á¤
+		if TCK_USER_PER.AIC_ScenarioSet <> '1' then  // íšŒì‚¬ : AI-OB ë°°ì°¨ì§€ì—°ì½œ ì„¤ì •
 		begin
-			ShowMessage('[AI-OB ¹èÂ÷Áö¿¬Äİ ¼³Á¤] ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.'+#13#10+'°ü¸®ÀÚ¿¡°Ô ¹®ÀÇ(±ÇÇÑ¿äÃ») ¹Ù¶ø´Ï´Ù.' +#13#10+#13#10
-								+ '±ÇÇÑÇ×¸ñ >> È¸»ç : AI-OB ¹èÂ÷Áö¿¬Äİ ¼³Á¤');
+			ShowMessage('[AI-OB ë°°ì°¨ì§€ì—°ì½œ ì„¤ì •] ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤.'+#13#10+'ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜(ê¶Œí•œìš”ì²­) ë°”ëë‹ˆë‹¤.' +#13#10+#13#10
+								+ 'ê¶Œí•œí•­ëª© >> íšŒì‚¬ : AI-OB ë°°ì°¨ì§€ì—°ì½œ ì„¤ì •');
 			Exit;
 		end;
 
@@ -476,41 +478,41 @@ begin
 			iRow := cxGridAI_List1.DataController.FocusedRecordIndex;
       if iRow < 0 then Exit;      
 
-			iCol := cxGridAI_List1.GetColumnByFieldName('Áö»çÄÚµå').Index;
+			iCol := cxGridAI_List1.GetColumnByFieldName('ì§€ì‚¬ì½”ë“œ').Index;
 			sBrNo := cxGridAI_List1.DataController.Values[iRow, iCol];
-			iCol := cxGridAI_List1.GetColumnByFieldName('Áö»ç¸í').Index;
+			iCol := cxGridAI_List1.GetColumnByFieldName('ì§€ì‚¬ëª…').Index;
 			sBrNm := cxGridAI_List1.DataController.Values[iRow, iCol];
-			iCol := cxGridAI_List1.GetColumnByFieldName('´ëÇ¥¹øÈ£').Index;
+			iCol := cxGridAI_List1.GetColumnByFieldName('ëŒ€í‘œë²ˆí˜¸').Index;
 			sKey := CallToStr(cxGridAI_List1.DataController.Values[iRow, iCol]);
-			iCol := cxGridAI_List1.GetColumnByFieldName('½Ã³ª¸®¿ÀÄÚµå').Index;
+			iCol := cxGridAI_List1.GetColumnByFieldName('ì‹œë‚˜ë¦¬ì˜¤ì½”ë“œ').Index;
 			sScenarioNo := cxGridAI_List1.DataController.Values[iRow, iCol];
-			iCol := cxGridAI_List1.GetColumnByFieldName('½Ã³ª¸®¿À¸í').Index;
+			iCol := cxGridAI_List1.GetColumnByFieldName('ì‹œë‚˜ë¦¬ì˜¤ëª…').Index;
 			sScenarioNm := cxGridAI_List1.DataController.Values[iRow, iCol];
-			iCol := cxGridAI_List1.GetColumnByFieldName('»ç¿ë').Index;
+			iCol := cxGridAI_List1.GetColumnByFieldName('ì‚¬ìš©').Index;
 			sUse := cxGridAI_List1.DataController.Values[iRow, iCol];
-			iCol := cxGridAI_List1.GetColumnByFieldName('°æ°ú½Ã°£').Index;
+			iCol := cxGridAI_List1.GetColumnByFieldName('ê²½ê³¼ì‹œê°„').Index;
 			sPassTime := cxGridAI_List1.DataController.Values[iRow, iCol];
-			iCol := cxGridAI_List1.GetColumnByFieldName('Àç½ÃµµÈ½¼ö').Index;
+			iCol := cxGridAI_List1.GetColumnByFieldName('ì¬ì‹œë„íšŸìˆ˜').Index;
 			sReTryCnt := cxGridAI_List1.DataController.Values[iRow, iCol];
-			iCol := cxGridAI_List1.GetColumnByFieldName('Ãß°¡¿ä±İ').Index;
+			iCol := cxGridAI_List1.GetColumnByFieldName('ì¶”ê°€ìš”ê¸ˆ').Index;
 			sAddCash := cxGridAI_List1.DataController.Values[iRow, iCol];
-			iCol := cxGridAI_List1.GetColumnByFieldName('½ÇÆĞÀç¿¬°á½Ã°£').Index;
+			iCol := cxGridAI_List1.GetColumnByFieldName('ì‹¤íŒ¨ì¬ì—°ê²°ì‹œê°„').Index;
 			sFailTime := cxGridAI_List1.DataController.Values[iRow, iCol];
-			iCol := cxGridAI_List1.GetColumnByFieldName('½ÇÆĞÀç¿¬°áÈ½¼ö').Index;
+			iCol := cxGridAI_List1.GetColumnByFieldName('ì‹¤íŒ¨ì¬ì—°ê²°íšŸìˆ˜').Index;
 			sFailCnt := cxGridAI_List1.DataController.Values[iRow, iCol];
-			iCol := cxGridAI_List1.GetColumnByFieldName('ÀüÈ­¾È¹ŞÀ½¿À´õÃë¼ÒÈ½¼ö').Index;
+			iCol := cxGridAI_List1.GetColumnByFieldName('ì „í™”ì•ˆë°›ìŒì˜¤ë”ì·¨ì†ŒíšŸìˆ˜').Index;
 			sFailAnswerCnt := cxGridAI_List1.DataController.Values[iRow, iCol];
-			iCol := cxGridAI_List1.GetColumnByFieldName('Áö»çÄÚµå').Index;
+			iCol := cxGridAI_List1.GetColumnByFieldName('ì§€ì‚¬ì½”ë“œ').Index;
 			sBasicUse := cxGridAI_List1.DataController.Values[iRow, iCol];
-			iCol := cxGridAI_List1.GetColumnByFieldName('Ä«µå½ÂÀÎ°í°´¿äÃ»¿©ºÎ').Index;
+			iCol := cxGridAI_List1.GetColumnByFieldName('ì¹´ë“œìŠ¹ì¸ê³ ê°ìš”ì²­ì—¬ë¶€').Index;
 			sCardOrder := cxGridAI_List1.DataController.Values[iRow, iCol];
-			iCol := cxGridAI_List1.GetColumnByFieldName('¿î¿µ½ÃÀÛ½Ã°£').Index;
+			iCol := cxGridAI_List1.GetColumnByFieldName('ìš´ì˜ì‹œì‘ì‹œê°„').Index;
       sActSTime := cxGridAI_List1.DataController.Values[iRow, iCol];
-			iCol := cxGridAI_List1.GetColumnByFieldName('¿î¿µÁ¾·á½Ã°£').Index;
+			iCol := cxGridAI_List1.GetColumnByFieldName('ìš´ì˜ì¢…ë£Œì‹œê°„').Index;
       sActETime := cxGridAI_List1.DataController.Values[iRow, iCol];
 		end;
-//		if sKey = '' then sGubun := '0' else sGubun := '1'; //0:Áö»ç¼³Á¤, 1: ´ëÇ¥¹øÈ£¼³Á¤ ,2 : ¿ÏÀü½Å±Ô
-		iCol := cxGridAI_List1.GetColumnByFieldName('´ëÇ¥¹øÈ£').Index;
+//		if sKey = '' then sGubun := '0' else sGubun := '1'; //0:ì§€ì‚¬ì„¤ì •, 1: ëŒ€í‘œë²ˆí˜¸ì„¤ì • ,2 : ì™„ì „ì‹ ê·œ
+		iCol := cxGridAI_List1.GetColumnByFieldName('ëŒ€í‘œë²ˆí˜¸').Index;
 
 		if (cxGridAI_List1.DataController.RowCount = 0) then sGubun := '2' else
 		if cxGridAI_List1.DataController.Values[0, iCol] = '' then sGubun := '0' else sGubun := '1';
@@ -520,21 +522,21 @@ begin
 			iRow := cxGridAI_List1.DataController.FocusedRecordIndex;
 			if (iRow < 0) and (iTag = 1) then 
 			begin
-				GMessagebox('¼±ÅÃµÈ Áö»ç°¡ ¾ø½À´Ï´Ù.', CDMSI);
+				GMessagebox('ì„ íƒëœ ì§€ì‚¬ê°€ ì—†ìŠµë‹ˆë‹¤.', CDMSI);
 				Exit;
 			end;
 			
 			if ( Not Assigned(Frm_AIC02) ) Or ( Frm_AIC02 = Nil ) then 
 				Frm_AIC02 := TFrm_AIC02.Create(Nil);
 			Frm_AIC02.proc_Init;
-			Frm_AIC02.giType := StrToIntDef(sGubun,0);  //0:Áö»ç¼³Á¤, 1: ´ëÇ¥¹øÈ£¼³Á¤, 2 : ¿ÏÀü½Å±Ô
+			Frm_AIC02.giType := StrToIntDef(sGubun,0);  //0:ì§€ì‚¬ì„¤ì •, 1: ëŒ€í‘œë²ˆí˜¸ì„¤ì •, 2 : ì™„ì „ì‹ ê·œ
 			Frm_AIC02.Tag := iTag;
 			Frm_AIC02.Hint := gBrNo;
 			Frm_AIC02.cb_Keynumber.Properties.Items.Clear;
 			Frm_AIC02.cb_Keynumber.Properties.Items.Assign(gFKeyNumer);
 			Frm_AIC02.cb_KeyNumber.ItemIndex := -1;
 			Frm_AIC02.cb_Gubun.Enabled := False;
-			if iTag = 0 then //½Å±ÔÃß°¡
+			if iTag = 0 then //ì‹ ê·œì¶”ê°€
 			begin
 				Frm_AIC02.pnl_Help.Visible := False;
 				Frm_AIC02.gSaveGubun := 'i'; //i insert u update
@@ -543,23 +545,23 @@ begin
 				Frm_AIC02.cb_Scenario.Properties.Items.Assign(gFScenarioNm);
 				Frm_AIC02.cb_Scenario.Tag := 0; 
 				Frm_AIC02.cb_Scenario.ItemIndex := 0;
-				Frm_AIC02.lb_AIListNAme.Caption := ' AI-OB ¹èÂ÷Áö¿¬Äİ ½Ã³ª¸®¿À ¼³Á¤(½Å±Ô)';
-				if sGubun = '0' then Frm_AIC02.lb_AIListNAme.Caption := ' AI-OB ¹èÂ÷Áö¿¬Äİ ½Ã³ª¸®¿À ¼³Á¤(½Å±Ô)-Áö»çº°' else
-				if sGubun = '1' then Frm_AIC02.lb_AIListNAme.Caption := ' AI-OB ¹èÂ÷Áö¿¬Äİ ½Ã³ª¸®¿À ¼³Á¤(½Å±Ô)-´ëÇ¥¹øÈ£º°';
+				Frm_AIC02.lb_AIListNAme.Caption := ' AI-OB ë°°ì°¨ì§€ì—°ì½œ ì‹œë‚˜ë¦¬ì˜¤ ì„¤ì •(ì‹ ê·œ)';
+				if sGubun = '0' then Frm_AIC02.lb_AIListNAme.Caption := ' AI-OB ë°°ì°¨ì§€ì—°ì½œ ì‹œë‚˜ë¦¬ì˜¤ ì„¤ì •(ì‹ ê·œ)-ì§€ì‚¬ë³„' else
+				if sGubun = '1' then Frm_AIC02.lb_AIListNAme.Caption := ' AI-OB ë°°ì°¨ì§€ì—°ì½œ ì‹œë‚˜ë¦¬ì˜¤ ì„¤ì •(ì‹ ê·œ)-ëŒ€í‘œë²ˆí˜¸ë³„';
 
-				if sGubun = '2' then  //0:Áö»ç¼³Á¤
+				if sGubun = '2' then  //0:ì§€ì‚¬ì„¤ì •
 				begin
 					Frm_AIC02.cb_Gubun.Enabled := True;
 				end;
-				Frm_AIC02.cb_Gubun.ItemIndex := StrToIntDef(sGubun,0); //0:Áö»ç¼³Á¤, 1: ´ëÇ¥¹øÈ£¼³Á¤, 2 : ¿ÏÀü½Å±Ô
+				Frm_AIC02.cb_Gubun.ItemIndex := StrToIntDef(sGubun,0); //0:ì§€ì‚¬ì„¤ì •, 1: ëŒ€í‘œë²ˆí˜¸ì„¤ì •, 2 : ì™„ì „ì‹ ê·œ
 				Frm_AIC02.Show;
 				Frm_AIC02.edt_PassTime.SetFocus;			
 			end else
-			if iTag = 1 then //¼öÁ¤
+			if iTag = 1 then //ìˆ˜ì •
 			begin
 				Frm_AIC02.pnl_Help.Visible := False;
 				Frm_AIC02.gSaveGubun := 'u'; //i insert u update
-				Frm_AIC02.cb_Gubun.ItemIndex := StrToIntDef(sGubun,0); //0:Áö»ç¼³Á¤, 1: ´ëÇ¥¹øÈ£¼³Á¤, 2 : ¿ÏÀü½Å±Ô
+				Frm_AIC02.cb_Gubun.ItemIndex := StrToIntDef(sGubun,0); //0:ì§€ì‚¬ì„¤ì •, 1: ëŒ€í‘œë²ˆí˜¸ì„¤ì •, 2 : ì™„ì „ì‹ ê·œ
 				Frm_AIC02.cb_Scenario.Tag := 99;
 				Frm_AIC02.cb_Scenario.Properties.Items.Clear;
 				Frm_AIC02.cb_Scenario.Properties.Items.Add(sScenarioNm);
@@ -568,8 +570,8 @@ begin
 				Frm_AIC02.cb_Scenario.Tag := 0;
 				Frm_AIC02.proc_ScenarioList('Update', sKey, sScenarioNo);
 
-				Frm_AIC02.lb_AIListNAme.Caption := sScenarioNm + ' AI-OB ¹èÂ÷Áö¿¬Äİ ½Ã³ª¸®¿À ¼³Á¤';
-				Frm_AIC02.cb_Gubun.ItemIndex := StrToIntDef(sGubun,0); //0:Áö»ç¼³Á¤, 1: ´ëÇ¥¹øÈ£¼³Á¤, 2 : ¿ÏÀü½Å±Ô
+				Frm_AIC02.lb_AIListNAme.Caption := sScenarioNm + ' AI-OB ë°°ì°¨ì§€ì—°ì½œ ì‹œë‚˜ë¦¬ì˜¤ ì„¤ì •';
+				Frm_AIC02.cb_Gubun.ItemIndex := StrToIntDef(sGubun,0); //0:ì§€ì‚¬ì„¤ì •, 1: ëŒ€í‘œë²ˆí˜¸ì„¤ì •, 2 : ì™„ì „ì‹ ê·œ
 
 				Frm_AIC02.cb_KeyNumber.Tag := 99;
 				iTmp := gFKeyNumer.indexOf(sKey);
@@ -589,8 +591,8 @@ begin
 				Frm_AIC02.edt_FailReConnectCnt.Text := sFailCnt;
 				Frm_AIC02.edt_FailNoAnswer.Text := sFailAnswerCnt;
 
-				if sUse = '»ç¿ë' then Frm_AIC02.cb_Use.ItemIndex := 0 else Frm_AIC02.cb_Use.ItemIndex := 1;
-				if sCardOrder = '¿äÃ»' then Frm_AIC02.chk_CardOrder.checked := True else Frm_AIC02.chk_CardOrder.checked := false;
+				if sUse = 'ì‚¬ìš©' then Frm_AIC02.cb_Use.ItemIndex := 0 else Frm_AIC02.cb_Use.ItemIndex := 1;
+				if sCardOrder = 'ìš”ì²­' then Frm_AIC02.chk_CardOrder.checked := True else Frm_AIC02.chk_CardOrder.checked := false;
 
         if Trim(sActSTime) = '' then
           Frm_AIC02.tim_STime.Time := StrToTime('00:00:00')
@@ -623,19 +625,19 @@ begin
 			Exit;
 		end;
 
-		if TCK_USER_PER.AIC_ScenarioSet <> '1' then  // È¸»ç : AI-OB ¹èÂ÷Áö¿¬Äİ ¼³Á¤
+		if TCK_USER_PER.AIC_ScenarioSet <> '1' then  // íšŒì‚¬ : AI-OB ë°°ì°¨ì§€ì—°ì½œ ì„¤ì •
 		begin
-			ShowMessage('[AI-OB ¹èÂ÷Áö¿¬Äİ ¼³Á¤] ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.'+#13#10+'°ü¸®ÀÚ¿¡°Ô ¹®ÀÇ(±ÇÇÑ¿äÃ») ¹Ù¶ø´Ï´Ù.' +#13#10+#13#10
-								+ '±ÇÇÑÇ×¸ñ >> È¸»ç : AI-OB ¹èÂ÷Áö¿¬Äİ ¼³Á¤');
+			ShowMessage('[AI-OB ë°°ì°¨ì§€ì—°ì½œ ì„¤ì •] ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤.'+#13#10+'ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜(ê¶Œí•œìš”ì²­) ë°”ëë‹ˆë‹¤.' +#13#10+#13#10
+								+ 'ê¶Œí•œí•­ëª© >> íšŒì‚¬ : AI-OB ë°°ì°¨ì§€ì—°ì½œ ì„¤ì •');
 			Exit;
 		end;
 
-		sMsg := '¼±ÅÃÇÏ½Å ½Ã³ª¸®¿À¸¦ »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?';
+		sMsg := 'ì„ íƒí•˜ì‹  ì‹œë‚˜ë¦¬ì˜¤ë¥¼ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?';
 		if Application.MessageBox(PChar(sMsg), CDMSI, MB_YESNO +	MB_ICONQUESTION + MB_DEFBUTTON1) = IDYES then
 		begin
 			iCheckCol := cxGridAI_List1.GetColumnByFieldName('').Index;
-			iCol := cxGridAI_List1.GetColumnByFieldName('½Ã³ª¸®¿ÀÄÚµå').Index;
-			iKey := cxGridAI_List1.GetColumnByFieldName('´ëÇ¥¹øÈ£').Index;
+			iCol := cxGridAI_List1.GetColumnByFieldName('ì‹œë‚˜ë¦¬ì˜¤ì½”ë“œ').Index;
+			iKey := cxGridAI_List1.GetColumnByFieldName('ëŒ€í‘œë²ˆí˜¸').Index;
 			slTmp1 := TStringList.create;
 			slTmp2 := TStringList.create;
 			Try
@@ -690,14 +692,14 @@ procedure Tfrm_AIC01.btn_DownloadClick(Sender: TObject);
 
       sleep(1);
 
-			IE.Navigate('http://www.callmaner.com/download/Äİ¸¶³Ê_À½¼ºÀÎ½ÄOB½ÅÃ»¼­.zip');
+			IE.Navigate('http://www.callmaner.com/download/ì½œë§ˆë„ˆ_ìŒì„±ì¸ì‹OBì‹ ì²­ì„œ.zip');
       IE.Visible := True;
 
       Application.ProcessMessages;
       sleep(1);
     except on E: Exception do
-			GMessagebox(Format('½ÅÃ»¼­ ´Ù¿î·Îµå ½Ã ¿À·ù(Err: %s)°¡ ¹ß»ıÇÏ¿´½À´Ï´Ù.'#13#10
-												+ '(´Ù½Ã½Ãµµ ¹Ù¶ø´Ï´Ù.)' , [E.Message]), CDMSI);
+			GMessagebox(Format('ì‹ ì²­ì„œ ë‹¤ìš´ë¡œë“œ ì‹œ ì˜¤ë¥˜(Err: %s)ê°€ ë°œìƒí•˜ì˜€ìŠµë‹ˆë‹¤.'#13#10
+												+ '(ë‹¤ì‹œì‹œë„ ë°”ëë‹ˆë‹¤.)' , [E.Message]), CDMSI);
 		end;
   end;
 begin
@@ -722,10 +724,10 @@ begin
 			Exit;
 		end;
 
-		if TCK_USER_PER.AIC_ScenarioSet <> '1' then  // È¸»ç : AI-OB ¹èÂ÷Áö¿¬Äİ ¼³Á¤
+		if TCK_USER_PER.AIC_ScenarioSet <> '1' then  // íšŒì‚¬ : AI-OB ë°°ì°¨ì§€ì—°ì½œ ì„¤ì •
 		begin
-			ShowMessage('[AI-OB ¹èÂ÷Áö¿¬Äİ ¼³Á¤] ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.'+#13#10+'°ü¸®ÀÚ¿¡°Ô ¹®ÀÇ(±ÇÇÑ¿äÃ») ¹Ù¶ø´Ï´Ù.' +#13#10+#13#10
-								+ '±ÇÇÑÇ×¸ñ >> È¸»ç : AI-OB ¹èÂ÷Áö¿¬Äİ ¼³Á¤');
+			ShowMessage('[AI-OB ë°°ì°¨ì§€ì—°ì½œ ì„¤ì •] ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤.'+#13#10+'ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜(ê¶Œí•œìš”ì²­) ë°”ëë‹ˆë‹¤.' +#13#10+#13#10
+								+ 'ê¶Œí•œí•­ëª© >> íšŒì‚¬ : AI-OB ë°°ì°¨ì§€ì—°ì½œ ì„¤ì •');
 			Exit;
 		end;
 		
@@ -789,34 +791,34 @@ begin
 
 		if GT_SEL_BRNO.GUBUN <> '1' then
 		begin
-			GMessagebox(PChar('ÁÂÃøÁö»ç¸¦ ¼±ÅÃÇÏ½Ê½Ã¿À.'), CDMSI);
+			GMessagebox(PChar('ì¢Œì¸¡ì§€ì‚¬ë¥¼ ì„ íƒí•˜ì‹­ì‹œì˜¤.'), CDMSI);
 			Exit;
 		end;
 
 		Param := FormatDateTime('YYYYMMDD', cxDtStartA1.Date);
-		Param := Param + '¦¢' + FormatDateTime('YYYYMMDD', cxDtEndA1.Date);
+		Param := Param + 'â”‚' + FormatDateTime('YYYYMMDD', cxDtEndA1.Date);
 
 		if ( GT_USERIF.LV = '60' ) then
 		begin
-			Param := Param + '¦¢' + GT_SEL_BRNO.BrNo;
+			Param := Param + 'â”‚' + GT_SEL_BRNO.BrNo;
 			sTmp := GT_SEL_BRNO.BrNo;
 		end else
 		begin
-			Param := Param + '¦¢' + GT_USERIF.BR;
+			Param := Param + 'â”‚' + GT_USERIF.BR;
 			sTmp := GT_USERIF.BR;
 		end;
 
 		if cb_KeyNumberA2.ItemIndex = 0 then	
-			Param := Param + '¦¢' + ''
+			Param := Param + 'â”‚' + ''
 		else
-			Param := Param + '¦¢' + CallToStr(cb_KeyNumberA2.Text);
+			Param := Param + 'â”‚' + CallToStr(cb_KeyNumberA2.Text);
 
-		if cb_ScenarioA2.ItemIndex = 0 then	    //ÀüÃ¼
-			Param := Param + '¦¢' + ''
+		if cb_ScenarioA2.ItemIndex = 0 then	    //ì „ì²´
+			Param := Param + 'â”‚' + ''
 		else
-			Param := Param + '¦¢' + gFScenarioNo[cb_ScenarioA2.ItemIndex-1];     //ÀüÃ¼¹®±¸¶§¹®
+			Param := Param + 'â”‚' + gFScenarioNo[cb_ScenarioA2.ItemIndex-1];     //ì „ì²´ë¬¸êµ¬ë•Œë¬¸
 		
-		Param := Param + '¦¢' + Trim(edt_Slip.text);
+		Param := Param + 'â”‚' + Trim(edt_Slip.text);
 		
 		if not GetAIOouBoundYN(sTmp) then
 		begin
@@ -824,10 +826,10 @@ begin
 			Exit;
 		end;
 
-		if TCK_USER_PER.AIC_DetailList <> '1' then  // È¸»ç : AI-OB ¹èÂ÷Áö¿¬Äİ »ó¼¼³»¿ª
+		if TCK_USER_PER.AIC_DetailList <> '1' then  // íšŒì‚¬ : AI-OB ë°°ì°¨ì§€ì—°ì½œ ìƒì„¸ë‚´ì—­
 		begin
-			ShowMessage('[AI-OB ¹èÂ÷Áö¿¬Äİ »ó¼¼³»¿ª] ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.'+#13#10+'°ü¸®ÀÚ¿¡°Ô ¹®ÀÇ(±ÇÇÑ¿äÃ») ¹Ù¶ø´Ï´Ù.' +#13#10+#13#10
-								+ '±ÇÇÑÇ×¸ñ >> È¸»ç : AI-OB ¹èÂ÷Áö¿¬Äİ »ó¼¼³»¿ª');
+			ShowMessage('[AI-OB ë°°ì°¨ì§€ì—°ì½œ ìƒì„¸ë‚´ì—­] ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤.'+#13#10+'ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜(ê¶Œí•œìš”ì²­) ë°”ëë‹ˆë‹¤.' +#13#10+#13#10
+								+ 'ê¶Œí•œí•­ëª© >> íšŒì‚¬ : AI-OB ë°°ì°¨ì§€ì—°ì½œ ìƒì„¸ë‚´ì—­');
 			Exit;
 		end;
 
@@ -837,7 +839,7 @@ begin
 		try
 			if not RequestBasePaging(GetSel06('GET_BD_SEARCH_LIST', 'AI_OB_MNG.GET_BD_SEARCH_LIST', '1000', Param), slList, ErrCode, ErrMsg, 600000) then
 			begin
-				GMessagebox(Format('¹èÂ÷Áö¿¬Äİ »ó¼¼³»¿ª Á¶È¸ ¿À·ù'#13#10'[%d]%s', [ErrCode, ErrMsg]), CDMSI);
+				GMessagebox(Format('ë°°ì°¨ì§€ì—°ì½œ ìƒì„¸ë‚´ì—­ ì¡°íšŒ ì˜¤ë¥˜'#13#10'[%d]%s', [ErrCode, ErrMsg]), CDMSI);
 				Screen.Cursor := crDefault;
 				btnSearchA2.Enabled := True;
 				Exit;
@@ -867,52 +869,52 @@ begin
 								begin
             			iTot := 0; iSTot := 0; iFTot := 0; iNTot := 0;
 
-									GetTextSeperationEx2('¦¢', lst_Result.item[i].attributes.getNamedItem('Value').Text, ls_Rcrd);
+									GetTextSeperationEx2('â”‚', lst_Result.item[i].attributes.getNamedItem('Value').Text, ls_Rcrd);
 									Application.ProcessMessages;
 
-									iRow := cxGridAI2_List1.DataController.AppendRecord; // 1 Record Ãß°¡
-								  //Áö»çÄÚµå|Áö»ç¸í|´ëÇ¥¹øÈ£|³¯Â¥|Á¢¼ö¹øÈ£|°í°´¹øÈ£ |°í°´¸í |°í°´±¸ºĞ |½Ã³ª¸®¿ÀÄÚµå|½Ã³ª¸®¿À¸í | ÃÑOBÄİ¼ö |
-								  //´ë±âÃ³¸® | ¿ä±İÀÎ»óÃ³¸® | Á¢¼öÃë¼ÒÃ³¸® | »ó´ã¿ø¿¬°áÃ³¸® | No-½Ã³ª¸®¿À¿Ï·á | ±âÅ¸Äİ¼ö | Â÷°¨Ä³½¬ | ÃÖÁ¾»óÅÂ |
-								  //ÅëÈ­Áß¿¬°áÁ¾·á | ÀüÈ­¾È¹ŞÀ½ | ¿À´õ¸¶°¨»óÅÂ | ÃÖÁ¾ÅëÈ­±¸ºĞ | ÃÖÁ¾ÅëÈ­½Ã°£(ÃÊ)| ÅëÈ­Áß¿¬°áÁ¾·á | ÀÚµ¿ÀÀ´ä | ¹«ÀÀ´äÁ¾·á | ¼ö½Å°ÅºÎ
+									iRow := cxGridAI2_List1.DataController.AppendRecord; // 1 Record ì¶”ê°€
+								  //ì§€ì‚¬ì½”ë“œ|ì§€ì‚¬ëª…|ëŒ€í‘œë²ˆí˜¸|ë‚ ì§œ|ì ‘ìˆ˜ë²ˆí˜¸|ê³ ê°ë²ˆí˜¸ |ê³ ê°ëª… |ê³ ê°êµ¬ë¶„ |ì‹œë‚˜ë¦¬ì˜¤ì½”ë“œ|ì‹œë‚˜ë¦¬ì˜¤ëª… | ì´OBì½œìˆ˜ |
+								  //ëŒ€ê¸°ì²˜ë¦¬ | ìš”ê¸ˆì¸ìƒì²˜ë¦¬ | ì ‘ìˆ˜ì·¨ì†Œì²˜ë¦¬ | ìƒë‹´ì›ì—°ê²°ì²˜ë¦¬ | No-ì‹œë‚˜ë¦¬ì˜¤ì™„ë£Œ | ê¸°íƒ€ì½œìˆ˜ | ì°¨ê°ìºì‰¬ | ìµœì¢…ìƒíƒœ |
+								  //í†µí™”ì¤‘ì—°ê²°ì¢…ë£Œ | ì „í™”ì•ˆë°›ìŒ | ì˜¤ë”ë§ˆê°ìƒíƒœ | ìµœì¢…í†µí™”êµ¬ë¶„ | ìµœì¢…í†µí™”ì‹œê°„(ì´ˆ)| í†µí™”ì¤‘ì—°ê²°ì¢…ë£Œ | ìë™ì‘ë‹µ | ë¬´ì‘ë‹µì¢…ë£Œ | ìˆ˜ì‹ ê±°ë¶€
 									cxGridAI2_List1.DataController.Values[iRow, 0] := IntToStr(iRow+1);
-									cxGridAI2_List1.DataController.Values[iRow, 1] := ls_Rcrd[0];            //Áö»çÄÚµå
-									cxGridAI2_List1.DataController.Values[iRow, 2] := ls_Rcrd[1];            //Áö»ç¸í
-									cxGridAI2_List1.DataController.Values[iRow, 3] := StrToCall(ls_Rcrd[2]); //´ëÇ¥¹øÈ£
-									cxGridAI2_List1.DataController.Values[iRow, 4] := ls_Rcrd[3];            //³¯Â¥
-									cxGridAI2_List1.DataController.Values[iRow, 5] := ls_Rcrd[4];            //Á¢¼ö¹øÈ£
-									cxGridAI2_List1.DataController.Values[iRow, 6] := StrToCall(ls_Rcrd[5]); //°í°´¹øÈ£
-									cxGridAI2_List1.DataController.Values[iRow, 7] := ls_Rcrd[6];            //°í°´¸í
-									cxGridAI2_List1.DataController.Values[iRow, 8] := ls_Rcrd[7];            //°í°´±¸ºĞ
-									cxGridAI2_List1.DataController.Values[iRow, 9] := ls_Rcrd[8];            //½Ã³ª¸®¿ÀÄÚµå
-									cxGridAI2_List1.DataController.Values[iRow,10] := ls_Rcrd[9];            //½Ã³ª¸®¿À¸í
-									cxGridAI2_List1.DataController.Values[iRow,11] := StrToIntDef(ls_Rcrd[10],0);           //ÃÑOBÄİ¼ö
-									cxGridAI2_List1.DataController.Values[iRow,12] := StrToIntDef(ls_Rcrd[11],0);           //´ë±âÃ³¸®
-									cxGridAI2_List1.DataController.Values[iRow,13] := StrToIntDef(ls_Rcrd[12],0);           //¿ä±İÀÎ»óÃ³¸®
-									cxGridAI2_List1.DataController.Values[iRow,14] := StrToIntDef(ls_Rcrd[13],0);           //Á¢¼öÃë¼ÒÃ³¸®
-									cxGridAI2_List1.DataController.Values[iRow,15] := StrToIntDef(ls_Rcrd[15],0);           //No-½Ã³ª¸®¿À¿Ï·á(Á¤»óÁ¾·áÄİ¼ö)
-									cxGridAI2_List1.DataController.Values[iRow,16] := StrToIntDef(ls_Rcrd[14],0);           //»ó´ã¿ø¿¬°áÃ³¸®
-									cxGridAI2_List1.DataController.Values[iRow,17] := StrToIntDef(ls_Rcrd[24],0);           //ÅëÈ­Áß¿¬°áÁ¾·á
-									cxGridAI2_List1.DataController.Values[iRow,18] := StrToIntDef(ls_Rcrd[20],0);           //ÀüÈ­¾È¹ŞÀ½
-									cxGridAI2_List1.DataController.Values[iRow,19] := StrToIntDef(ls_Rcrd[17],0);           //Â÷°¨Ä³½¬
-									cxGridAI2_List1.DataController.Values[iRow,20] := ls_Rcrd[18];           //OB½ÇÇà°á°ú   [16]±âÅ¸Äİ¼ö
-									cxGridAI2_List1.DataController.Values[iRow,21] := ls_Rcrd[21];           //¿À´õ¸¶°¨»óÅÂ
-									cxGridAI2_List1.DataController.Values[iRow,22] := StrToIntDef(ls_Rcrd[25],0);           //ÀÚµ¿ÀÀ´ä
-									cxGridAI2_List1.DataController.Values[iRow,23] := StrToIntDef(ls_Rcrd[26],0);           //¹«ÀÀ´äÁ¾·á
-									cxGridAI2_List1.DataController.Values[iRow,24] := ls_Rcrd[22];           //ÃÖÁ¾ÅëÈ­±¸ºĞ
-									cxGridAI2_List1.DataController.Values[iRow,25] := ls_Rcrd[23];           //ÃÖÁ¾ÅëÈ­½Ã°£(ÃÊ)|
-									cxGridAI2_List1.DataController.Values[iRow,26] := StrToIntDef(ls_Rcrd[27],0);           //¼ö½Å°ÅºÎ
+									cxGridAI2_List1.DataController.Values[iRow, 1] := ls_Rcrd[0];            //ì§€ì‚¬ì½”ë“œ
+									cxGridAI2_List1.DataController.Values[iRow, 2] := ls_Rcrd[1];            //ì§€ì‚¬ëª…
+									cxGridAI2_List1.DataController.Values[iRow, 3] := StrToCall(ls_Rcrd[2]); //ëŒ€í‘œë²ˆí˜¸
+									cxGridAI2_List1.DataController.Values[iRow, 4] := ls_Rcrd[3];            //ë‚ ì§œ
+									cxGridAI2_List1.DataController.Values[iRow, 5] := ls_Rcrd[4];            //ì ‘ìˆ˜ë²ˆí˜¸
+									cxGridAI2_List1.DataController.Values[iRow, 6] := StrToCall(ls_Rcrd[5]); //ê³ ê°ë²ˆí˜¸
+									cxGridAI2_List1.DataController.Values[iRow, 7] := ls_Rcrd[6];            //ê³ ê°ëª…
+									cxGridAI2_List1.DataController.Values[iRow, 8] := ls_Rcrd[7];            //ê³ ê°êµ¬ë¶„
+									cxGridAI2_List1.DataController.Values[iRow, 9] := ls_Rcrd[8];            //ì‹œë‚˜ë¦¬ì˜¤ì½”ë“œ
+									cxGridAI2_List1.DataController.Values[iRow,10] := ls_Rcrd[9];            //ì‹œë‚˜ë¦¬ì˜¤ëª…
+									cxGridAI2_List1.DataController.Values[iRow,11] := StrToIntDef(ls_Rcrd[10],0);           //ì´OBì½œìˆ˜
+									cxGridAI2_List1.DataController.Values[iRow,12] := StrToIntDef(ls_Rcrd[11],0);           //ëŒ€ê¸°ì²˜ë¦¬
+									cxGridAI2_List1.DataController.Values[iRow,13] := StrToIntDef(ls_Rcrd[12],0);           //ìš”ê¸ˆì¸ìƒì²˜ë¦¬
+									cxGridAI2_List1.DataController.Values[iRow,14] := StrToIntDef(ls_Rcrd[13],0);           //ì ‘ìˆ˜ì·¨ì†Œì²˜ë¦¬
+									cxGridAI2_List1.DataController.Values[iRow,15] := StrToIntDef(ls_Rcrd[15],0);           //No-ì‹œë‚˜ë¦¬ì˜¤ì™„ë£Œ(ì •ìƒì¢…ë£Œì½œìˆ˜)
+									cxGridAI2_List1.DataController.Values[iRow,16] := StrToIntDef(ls_Rcrd[14],0);           //ìƒë‹´ì›ì—°ê²°ì²˜ë¦¬
+									cxGridAI2_List1.DataController.Values[iRow,17] := StrToIntDef(ls_Rcrd[24],0);           //í†µí™”ì¤‘ì—°ê²°ì¢…ë£Œ
+									cxGridAI2_List1.DataController.Values[iRow,18] := StrToIntDef(ls_Rcrd[20],0);           //ì „í™”ì•ˆë°›ìŒ
+									cxGridAI2_List1.DataController.Values[iRow,19] := StrToIntDef(ls_Rcrd[17],0);           //ì°¨ê°ìºì‰¬
+									cxGridAI2_List1.DataController.Values[iRow,20] := ls_Rcrd[18];           //OBì‹¤í–‰ê²°ê³¼   [16]ê¸°íƒ€ì½œìˆ˜
+									cxGridAI2_List1.DataController.Values[iRow,21] := ls_Rcrd[21];           //ì˜¤ë”ë§ˆê°ìƒíƒœ
+									cxGridAI2_List1.DataController.Values[iRow,22] := StrToIntDef(ls_Rcrd[25],0);           //ìë™ì‘ë‹µ
+									cxGridAI2_List1.DataController.Values[iRow,23] := StrToIntDef(ls_Rcrd[26],0);           //ë¬´ì‘ë‹µì¢…ë£Œ
+									cxGridAI2_List1.DataController.Values[iRow,24] := ls_Rcrd[22];           //ìµœì¢…í†µí™”êµ¬ë¶„
+									cxGridAI2_List1.DataController.Values[iRow,25] := ls_Rcrd[23];           //ìµœì¢…í†µí™”ì‹œê°„(ì´ˆ)|
+									cxGridAI2_List1.DataController.Values[iRow,26] := StrToIntDef(ls_Rcrd[27],0);           //ìˆ˜ì‹ ê±°ë¶€
 
-									iSTot := StrToIntDef(ls_Rcrd[11],0) + StrToIntDef(ls_Rcrd[12],0)    //´ë±âÃ³¸® + ¿ä±İÀÎ»óÃ³¸®
-												 + StrToIntDef(ls_Rcrd[13],0) + StrToIntDef(ls_Rcrd[15],0);   //Á¢¼öÃë¼ÒÃ³¸® + No-½Ã³ª¸®¿À¿Ï·á
-									iFTot := StrToIntDef(ls_Rcrd[14],0) + StrToIntDef(ls_Rcrd[24],0)    //»ó´ã¿ø¿¬°áÃ³¸® + ÅëÈ­Áß¿¬°áÁ¾·á
-												 + StrToIntDef(ls_Rcrd[26],0);   //¹«ÀÀ´äÁ¾·á
-									iNTot := StrToIntDef(ls_Rcrd[27],0) + StrToIntDef(ls_Rcrd[25],0)    //¼ö½Å°ÅºÎ + ÀÚµ¿ÀÀ´ä
-												 + StrToIntDef(ls_Rcrd[20],0);   //ÀüÈ­¾È¹ŞÀ½
+									iSTot := StrToIntDef(ls_Rcrd[11],0) + StrToIntDef(ls_Rcrd[12],0)    //ëŒ€ê¸°ì²˜ë¦¬ + ìš”ê¸ˆì¸ìƒì²˜ë¦¬
+												 + StrToIntDef(ls_Rcrd[13],0) + StrToIntDef(ls_Rcrd[15],0);   //ì ‘ìˆ˜ì·¨ì†Œì²˜ë¦¬ + No-ì‹œë‚˜ë¦¬ì˜¤ì™„ë£Œ
+									iFTot := StrToIntDef(ls_Rcrd[14],0) + StrToIntDef(ls_Rcrd[24],0)    //ìƒë‹´ì›ì—°ê²°ì²˜ë¦¬ + í†µí™”ì¤‘ì—°ê²°ì¢…ë£Œ
+												 + StrToIntDef(ls_Rcrd[26],0);   //ë¬´ì‘ë‹µì¢…ë£Œ
+									iNTot := StrToIntDef(ls_Rcrd[27],0) + StrToIntDef(ls_Rcrd[25],0)    //ìˆ˜ì‹ ê±°ë¶€ + ìë™ì‘ë‹µ
+												 + StrToIntDef(ls_Rcrd[20],0);   //ì „í™”ì•ˆë°›ìŒ
 									iTot := iSTot + iFTot;
-									cxGridAI2_List1.DataController.Values[iRow,27] := (iTot);           //ÅëÈ­Äİ¼ö
-									cxGridAI2_List1.DataController.Values[iRow,28] := (iSTot);           //¼º°øÇÕ°è
-									cxGridAI2_List1.DataController.Values[iRow,29] := (iFTot);           //½ÇÆĞÇÕ°è
-									cxGridAI2_List1.DataController.Values[iRow,30] := (iNTot);           //¹Ì¿¬°áÇÕ°è 
+									cxGridAI2_List1.DataController.Values[iRow,27] := (iTot);           //í†µí™”ì½œìˆ˜
+									cxGridAI2_List1.DataController.Values[iRow,28] := (iSTot);           //ì„±ê³µí•©ê³„
+									cxGridAI2_List1.DataController.Values[iRow,29] := (iFTot);           //ì‹¤íŒ¨í•©ê³„
+									cxGridAI2_List1.DataController.Values[iRow,30] := (iNTot);           //ë¯¸ì—°ê²°í•©ê³„ 
 								end;
 							finally
 								ls_Rcrd.Free;
@@ -959,34 +961,34 @@ begin
 
 		if GT_SEL_BRNO.GUBUN <> '1' then
 		begin
-			GMessagebox(PChar('ÁÂÃøÁö»ç¸¦ ¼±ÅÃÇÏ½Ê½Ã¿À.'), CDMSI);
+			GMessagebox(PChar('ì¢Œì¸¡ì§€ì‚¬ë¥¼ ì„ íƒí•˜ì‹­ì‹œì˜¤.'), CDMSI);
 			Exit;
 		end;
 
-		if TCK_USER_PER.AIC_DayTOT <> '1' then  // È¸»ç : AI-OB ¹èÂ÷Áö¿¬Äİ ÀÏº°ÇöÈ²
+		if TCK_USER_PER.AIC_DayTOT <> '1' then  // íšŒì‚¬ : AI-OB ë°°ì°¨ì§€ì—°ì½œ ì¼ë³„í˜„í™©
 		begin
-			ShowMessage('[AI-OB ¹èÂ÷Áö¿¬Äİ ÀÏº°ÇöÈ²] ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.'+#13#10+'°ü¸®ÀÚ¿¡°Ô ¹®ÀÇ(±ÇÇÑ¿äÃ») ¹Ù¶ø´Ï´Ù.' +#13#10+#13#10
-								+ '±ÇÇÑÇ×¸ñ >> È¸»ç : AI-OB ¹èÂ÷Áö¿¬Äİ ÀÏº°ÇöÈ²');
+			ShowMessage('[AI-OB ë°°ì°¨ì§€ì—°ì½œ ì¼ë³„í˜„í™©] ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤.'+#13#10+'ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜(ê¶Œí•œìš”ì²­) ë°”ëë‹ˆë‹¤.' +#13#10+#13#10
+								+ 'ê¶Œí•œí•­ëª© >> íšŒì‚¬ : AI-OB ë°°ì°¨ì§€ì—°ì½œ ì¼ë³„í˜„í™©');
 			Exit;
 		end;
 
 		Param := FormatDateTime('YYYYMMDD', cxDtStartA2.Date);
-		Param := Param + '¦¢' + FormatDateTime('YYYYMMDD', cxDtEndA2.Date);
+		Param := Param + 'â”‚' + FormatDateTime('YYYYMMDD', cxDtEndA2.Date);
 
 		if ( GT_USERIF.LV = '60' ) then
 		begin
-			Param := Param + '¦¢' + GT_SEL_BRNO.BrNo;
+			Param := Param + 'â”‚' + GT_SEL_BRNO.BrNo;
 			sTmp := GT_SEL_BRNO.BrNo;
 		end else
 		begin
-			Param := Param + '¦¢' + GT_USERIF.BR;
+			Param := Param + 'â”‚' + GT_USERIF.BR;
 			sTmp := GT_USERIF.BR;
 		end;
 
 		if cb_KeyNumberA3.ItemIndex = 0 then
-			Param := Param + '¦¢' + ''
+			Param := Param + 'â”‚' + ''
 		else
-			Param := Param + '¦¢' + CallToStr(cb_KeyNumberA3.Text);
+			Param := Param + 'â”‚' + CallToStr(cb_KeyNumberA3.Text);
 
 		if not GetAIOouBoundYN(sTmp) then
 		begin
@@ -1000,7 +1002,7 @@ begin
 		try
 			if not RequestBasePaging(GetSel06('GET_BD_DAY_LIST', 'AI_OB_MNG.GET_BD_DAY_LIST', '1000', Param), slList, ErrCode, ErrMsg) then
 			begin
-				GMessagebox(Format('¹èÂ÷Áö¿¬Äİ »ó¼¼³»¿ª Á¶È¸ ¿À·ù'#13#10'[%d]%s', [ErrCode, ErrMsg]), CDMSI);
+				GMessagebox(Format('ë°°ì°¨ì§€ì—°ì½œ ìƒì„¸ë‚´ì—­ ì¡°íšŒ ì˜¤ë¥˜'#13#10'[%d]%s', [ErrCode, ErrMsg]), CDMSI);
 				Screen.Cursor := crDefault;
 				btnSearchA3.Enabled := True;
 				Exit;
@@ -1033,46 +1035,46 @@ begin
 								begin
 			            iTot := 0; iSTot := 0; iFTot := 0; iNTot := 0; dSper := 0; dFPer := 0;
 
-									GetTextSeperationEx2('¦¢', lst_Result.item[i].attributes.getNamedItem('Value').Text, ls_Rcrd);
+									GetTextSeperationEx2('â”‚', lst_Result.item[i].attributes.getNamedItem('Value').Text, ls_Rcrd);
 									Application.ProcessMessages;
 
-									iRow := cxGridAI3_List1.DataController.AppendRecord; // 1 Record Ãß°¡
+									iRow := cxGridAI3_List1.DataController.AppendRecord; // 1 Record ì¶”ê°€
 
 									cxGridAI3_List1.DataController.Values[iRow, 0] := IntToStr(iRow+1);
-									cxGridAI3_List1.DataController.Values[iRow, 1] := ls_Rcrd[0];            //Áö»çÄÚµå
-									cxGridAI3_List1.DataController.Values[iRow, 2] := ls_Rcrd[1];            //Áö»ç¸í
-									cxGridAI3_List1.DataController.Values[iRow, 3] := StrToCall(ls_Rcrd[2]); //´ëÇ¥¹øÈ£
-									cxGridAI3_List1.DataController.Values[iRow, 4] := ls_Rcrd[3];            //³¯Â¥
-									cxGridAI3_List1.DataController.Values[iRow, 5] := ls_Rcrd[4];            //ÃÑOBÄİ¼ö
-									cxGridAI3_List1.DataController.Values[iRow, 6] := ls_Rcrd[5];            //´ë±âÃ³¸®
-									cxGridAI3_List1.DataController.Values[iRow, 7] := ls_Rcrd[6];            //¿ä±İÀÎ»óÃ³¸®
-									cxGridAI3_List1.DataController.Values[iRow, 8] := ls_Rcrd[7];            //Á¢¼öÃë¼ÒÃ³¸®
-									cxGridAI3_List1.DataController.Values[iRow, 9] := ls_Rcrd[9];            //No-½Ã³ª¸®¿À¿Ï·á(Á¤»óÁ¾·áÄİ¼ö)
-									cxGridAI3_List1.DataController.Values[iRow,10] := ls_Rcrd[8];            //»ó´ã¿ø¿¬°áÃ³¸®
-									cxGridAI3_List1.DataController.Values[iRow,11] := ls_Rcrd[14];           //ÅëÈ­Áß¿¬°áÁ¾·á ls_Rcrd[12]´Â »ç¿ë¾ÈÇÔ
-									cxGridAI3_List1.DataController.Values[iRow,12] := ls_Rcrd[13];           //ÀüÈ­¾È¹ŞÀ½
+									cxGridAI3_List1.DataController.Values[iRow, 1] := ls_Rcrd[0];            //ì§€ì‚¬ì½”ë“œ
+									cxGridAI3_List1.DataController.Values[iRow, 2] := ls_Rcrd[1];            //ì§€ì‚¬ëª…
+									cxGridAI3_List1.DataController.Values[iRow, 3] := StrToCall(ls_Rcrd[2]); //ëŒ€í‘œë²ˆí˜¸
+									cxGridAI3_List1.DataController.Values[iRow, 4] := ls_Rcrd[3];            //ë‚ ì§œ
+									cxGridAI3_List1.DataController.Values[iRow, 5] := ls_Rcrd[4];            //ì´OBì½œìˆ˜
+									cxGridAI3_List1.DataController.Values[iRow, 6] := ls_Rcrd[5];            //ëŒ€ê¸°ì²˜ë¦¬
+									cxGridAI3_List1.DataController.Values[iRow, 7] := ls_Rcrd[6];            //ìš”ê¸ˆì¸ìƒì²˜ë¦¬
+									cxGridAI3_List1.DataController.Values[iRow, 8] := ls_Rcrd[7];            //ì ‘ìˆ˜ì·¨ì†Œì²˜ë¦¬
+									cxGridAI3_List1.DataController.Values[iRow, 9] := ls_Rcrd[9];            //No-ì‹œë‚˜ë¦¬ì˜¤ì™„ë£Œ(ì •ìƒì¢…ë£Œì½œìˆ˜)
+									cxGridAI3_List1.DataController.Values[iRow,10] := ls_Rcrd[8];            //ìƒë‹´ì›ì—°ê²°ì²˜ë¦¬
+									cxGridAI3_List1.DataController.Values[iRow,11] := ls_Rcrd[14];           //í†µí™”ì¤‘ì—°ê²°ì¢…ë£Œ ls_Rcrd[12]ëŠ” ì‚¬ìš©ì•ˆí•¨
+									cxGridAI3_List1.DataController.Values[iRow,12] := ls_Rcrd[13];           //ì „í™”ì•ˆë°›ìŒ
 
 									iSCnt := StrToIntDef(ls_Rcrd[5], 0) + StrToIntDef(ls_Rcrd[6], 0)
 												 + StrToIntDef(ls_Rcrd[7], 0) + StrToIntDef(ls_Rcrd[9], 0);
-									cxGridAI3_List1.DataController.Values[iRow,13] := iSCnt;                 //¼º°ø°Ç¼ö  - »ç¿ë¾ÈÇÔ.
+									cxGridAI3_List1.DataController.Values[iRow,13] := iSCnt;                 //ì„±ê³µê±´ìˆ˜  - ì‚¬ìš©ì•ˆí•¨.
 
 									iFCnt := StrToIntDef(ls_Rcrd[8], 0) + StrToIntDef(ls_Rcrd[14], 0) + StrToIntDef(ls_Rcrd[16], 0) +
-                           StrToIntDef(ls_Rcrd[17],0) + StrToIntDef(ls_Rcrd[15], 0) +    //¼ö½Å°ÅºÎ + ÀÚµ¿ÀÀ´ä
+                           StrToIntDef(ls_Rcrd[17],0) + StrToIntDef(ls_Rcrd[15], 0) +    //ìˆ˜ì‹ ê±°ë¶€ + ìë™ì‘ë‹µ
 												   StrToIntDef(ls_Rcrd[13],0);
-									cxGridAI3_List1.DataController.Values[iRow,14] := iFCnt;                 //½ÇÆĞ°Ç¼ö
-									cxGridAI3_List1.DataController.Values[iRow,15] := ls_Rcrd[11];           //Â÷°¨Ä³½¬
-									cxGridAI3_List1.DataController.Values[iRow,16] := ls_Rcrd[15];           //ÀÚµ¿ÀÀ´ä
-									cxGridAI3_List1.DataController.Values[iRow,17] := ls_Rcrd[16];           //¹«ÀÀ´äÁ¾·á
-									cxGridAI3_List1.DataController.Values[iRow,18] := ls_Rcrd[17];           //¼ö½Å°ÅºÎ
+									cxGridAI3_List1.DataController.Values[iRow,14] := iFCnt;                 //ì‹¤íŒ¨ê±´ìˆ˜
+									cxGridAI3_List1.DataController.Values[iRow,15] := ls_Rcrd[11];           //ì°¨ê°ìºì‰¬
+									cxGridAI3_List1.DataController.Values[iRow,16] := ls_Rcrd[15];           //ìë™ì‘ë‹µ
+									cxGridAI3_List1.DataController.Values[iRow,17] := ls_Rcrd[16];           //ë¬´ì‘ë‹µì¢…ë£Œ
+									cxGridAI3_List1.DataController.Values[iRow,18] := ls_Rcrd[17];           //ìˆ˜ì‹ ê±°ë¶€
 
-									iSTot := StrToIntDef(ls_Rcrd[5],0) + StrToIntDef(ls_Rcrd[6],0)    //´ë±âÃ³¸® + ¿ä±İÀÎ»óÃ³¸®
-												 + StrToIntDef(ls_Rcrd[7],0) + StrToIntDef(ls_Rcrd[9],0);   //Á¢¼öÃë¼ÒÃ³¸® + No-½Ã³ª¸®¿À¿Ï·á
+									iSTot := StrToIntDef(ls_Rcrd[5],0) + StrToIntDef(ls_Rcrd[6],0)    //ëŒ€ê¸°ì²˜ë¦¬ + ìš”ê¸ˆì¸ìƒì²˜ë¦¬
+												 + StrToIntDef(ls_Rcrd[7],0) + StrToIntDef(ls_Rcrd[9],0);   //ì ‘ìˆ˜ì·¨ì†Œì²˜ë¦¬ + No-ì‹œë‚˜ë¦¬ì˜¤ì™„ë£Œ
 
-									iFTot := StrToIntDef(ls_Rcrd[8],0) + StrToIntDef(ls_Rcrd[14],0)    //»ó´ã¿ø¿¬°áÃ³¸® + ÅëÈ­Áß¿¬°áÁ¾·á
-												 + StrToIntDef(ls_Rcrd[16],0);   //¹«ÀÀ´äÁ¾·á
+									iFTot := StrToIntDef(ls_Rcrd[8],0) + StrToIntDef(ls_Rcrd[14],0)    //ìƒë‹´ì›ì—°ê²°ì²˜ë¦¬ + í†µí™”ì¤‘ì—°ê²°ì¢…ë£Œ
+												 + StrToIntDef(ls_Rcrd[16],0);   //ë¬´ì‘ë‹µì¢…ë£Œ
 
-									iNTot := StrToIntDef(ls_Rcrd[17],0) + StrToIntDef(ls_Rcrd[15],0)    //¼ö½Å°ÅºÎ + ÀÚµ¿ÀÀ´ä
-												 + StrToIntDef(ls_Rcrd[13],0);   //ÀüÈ­¾È¹ŞÀ½
+									iNTot := StrToIntDef(ls_Rcrd[17],0) + StrToIntDef(ls_Rcrd[15],0)    //ìˆ˜ì‹ ê±°ë¶€ + ìë™ì‘ë‹µ
+												 + StrToIntDef(ls_Rcrd[13],0);   //ì „í™”ì•ˆë°›ìŒ
 									iTot := iSTot + iFTot;
                   if iTot <> 0 then
                   begin
@@ -1081,12 +1083,12 @@ begin
 		   							dFPer := (iFTot / iTot) * 100;
 			   						dFPer := Round(dFPer);
                   end;
-									cxGridAI3_List1.DataController.Values[iRow,19] := (iTot);            //ÅëÈ­Äİ¼ö
-									cxGridAI3_List1.DataController.Values[iRow,20] := (iSTot);           //¼º°øÇÕ°è
-									cxGridAI3_List1.DataController.Values[iRow,21] := (dSper);           //¼º°øÀ²
-									cxGridAI3_List1.DataController.Values[iRow,22] := (iFTot);           //½ÇÆĞÇÕ°è
-									cxGridAI3_List1.DataController.Values[iRow,23] := (dFPer);           //½ÇÆĞÀ²
-									cxGridAI3_List1.DataController.Values[iRow,24] := (iNTot);           //¹Ì¿¬°áÇÕ°è
+									cxGridAI3_List1.DataController.Values[iRow,19] := (iTot);            //í†µí™”ì½œìˆ˜
+									cxGridAI3_List1.DataController.Values[iRow,20] := (iSTot);           //ì„±ê³µí•©ê³„
+									cxGridAI3_List1.DataController.Values[iRow,21] := (dSper);           //ì„±ê³µìœ¨
+									cxGridAI3_List1.DataController.Values[iRow,22] := (iFTot);           //ì‹¤íŒ¨í•©ê³„
+									cxGridAI3_List1.DataController.Values[iRow,23] := (dFPer);           //ì‹¤íŒ¨ìœ¨
+									cxGridAI3_List1.DataController.Values[iRow,24] := (iNTot);           //ë¯¸ì—°ê²°í•©ê³„
 
                   giSumTot  := giSumTot  + iTot;
                   giSumSTot := giSumSTot + iSTot;
@@ -1120,24 +1122,24 @@ procedure Tfrm_AIC01.btnExcelA2Click(Sender: TObject);
 begin
 	if cxGridAI2_List1.DataController.RecordCount = 0 then
   begin
-		GMessagebox('ÀÚ·á°¡ ¾ø½À´Ï´Ù.', CDMSI);
+		GMessagebox('ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.', CDMSI);
     Exit;
 	end;
 
   if GT_USERIF.Excel_Use = 'n' then
 	begin
-    GMessagebox('[¿¢¼¿´Ù¿î·ÎµåÇã¿ë] ±ÇÇÑÀÌ ¾ø½À´Ï´Ù. °ü¸®ÀÚ¿¡°Ô ¹®ÀÇ(±ÇÇÑ¿äÃ») ¹Ù¶ø´Ï´Ù.', CDMSI);
+    GMessagebox('[ì—‘ì…€ë‹¤ìš´ë¡œë“œí—ˆìš©] ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤. ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜(ê¶Œí•œìš”ì²­) ë°”ëë‹ˆë‹¤.', CDMSI);
 		Exit;
   end;
 
 	if (TCK_USER_PER.ACC_ExcelDown <> '1') then
 	begin
-		ShowMessage('[¿¢¼¿´Ù¿î·Îµå[Á¤»ê¸Ş´º]] ±ÇÇÑÀÌ ¾ø½À´Ï´Ù. °ü¸®ÀÚ¿¡°Ô ¹®ÀÇ(±ÇÇÑ¿äÃ») ¹Ù¶ø´Ï´Ù.');
+		ShowMessage('[ì—‘ì…€ë‹¤ìš´ë¡œë“œ[ì •ì‚°ë©”ë‰´]] ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤. ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜(ê¶Œí•œìš”ì²­) ë°”ëë‹ˆë‹¤.');
     Exit;
   end;
 
-	Frm_Main.sgExcel := 'AI-OB ¹èÂ÷Áö¿¬Äİ »ó¼¼³»¿ª.xls';
-	Frm_Main.sgRpExcel := Format('È¸»ç>AI-OB ¹èÂ÷Áö¿¬Äİ »ó¼¼³»¿ª]%s°Ç', [GetMoneyStr(cxGridAI2_List1.DataController.RecordCount)]);
+	Frm_Main.sgExcel := 'AI-OB ë°°ì°¨ì§€ì—°ì½œ ìƒì„¸ë‚´ì—­.xls';
+	Frm_Main.sgRpExcel := Format('íšŒì‚¬>AI-OB ë°°ì°¨ì§€ì—°ì½œ ìƒì„¸ë‚´ì—­]%sê±´', [GetMoneyStr(cxGridAI2_List1.DataController.RecordCount)]);
 	Frm_Main.cxGridExcel := cxGrid1;
 	Frm_Main.bgExcelOPT := False;
 	Frm_Main.proc_excel(0);
@@ -1189,24 +1191,24 @@ begin
 
 			if Not iCheck then Frm_Main.procMainMenuCreateActive(200);
 
-			iAccTime    := 4;//cxGridAI2_List1.GetColumnByFieldName('¸®ÄİÀÏ½Ã').Index;
+			iAccTime    := 4;//cxGridAI2_List1.GetColumnByFieldName('ë¦¬ì½œì¼ì‹œ').Index;
 			sAccTime := cxGridAI2_List1.DataController.Values[iRow,iAccTime];
 			if sSlip = '' then exit;
-			Frm_Main.AcceptFromCreate(sSlip, sAccTime, '¼öÁ¤', GI_JON03_LastFromIdx);
+			Frm_Main.AcceptFromCreate(sSlip, sAccTime, 'ìˆ˜ì •', GI_JON03_LastFromIdx);
 		end else
 		begin
 			if ( Not Assigned(Frm_AIC09) ) Or ( Frm_AIC09 = Nil ) then 
 				Frm_AIC09 := TFrm_AIC09.Create(Nil);
 			Frm_AIC09.proc_Init;
 
-			iCol := 9;//cxGridAI2_List1.GetColumnByFieldName('½Ã³ª¸®¿ÀÄÚµå').Index;
+			iCol := 9;//cxGridAI2_List1.GetColumnByFieldName('ì‹œë‚˜ë¦¬ì˜¤ì½”ë“œ').Index;
 			sScenarioNo := cxGridAI2_List1.DataController.Values[iRow, iCol];
 
-			Param := sSlip + '¦¢' + sScenarioNo;
+			Param := sSlip + 'â”‚' + sScenarioNo;
 
 			if not RequestBase(GetSel06('GET_BD_SEARCH_DETAIL_LIST', 'AI_OB_MNG.GET_BD_SEARCH_DETAIL_LIST', '1000', Param), XmlData, ErrCode, ErrMsg) then
 			begin
-				GMessagebox(Format('¹èÂ÷Áö¿¬Äİ ¼¼ºÎ³»¿ª Á¶È¸ ¿À·ù'#13#10'[%d]%s', [ErrCode, ErrMsg]), CDMSI);
+				GMessagebox(Format('ë°°ì°¨ì§€ì—°ì½œ ì„¸ë¶€ë‚´ì—­ ì¡°íšŒ ì˜¤ë¥˜'#13#10'[%d]%s', [ErrCode, ErrMsg]), CDMSI);
 				Exit;
 			end;
 			xdom := ComsDomDocument.Create;
@@ -1288,21 +1290,21 @@ begin
 	Try
 		iRow := cxGridAI_List1.DataController.FocusedRecordIndex;
 
-		iCol := cxGridAI_List1.GetColumnByFieldName('Áö»çÄÚµå').Index;
+		iCol := cxGridAI_List1.GetColumnByFieldName('ì§€ì‚¬ì½”ë“œ').Index;
 		sBrNo := cxGridAI_List1.DataController.Values[iRow, iCol];
-		iCol := cxGridAI_List1.GetColumnByFieldName('´ëÇ¥¹øÈ£').Index;
+		iCol := cxGridAI_List1.GetColumnByFieldName('ëŒ€í‘œë²ˆí˜¸').Index;
 		sKeyNumber := CallToStr(cxGridAI_List1.DataController.Values[iRow, iCol]);
-		iCol := cxGridAI_List1.GetColumnByFieldName('½Ã³ª¸®¿ÀÄÚµå').Index;
+		iCol := cxGridAI_List1.GetColumnByFieldName('ì‹œë‚˜ë¦¬ì˜¤ì½”ë“œ').Index;
 		sScenarioNo := cxGridAI_List1.DataController.Values[iRow, iCol];
-		iCol := cxGridAI_List1.GetColumnByFieldName('½Ã³ª¸®¿À¸í').Index;
+		iCol := cxGridAI_List1.GetColumnByFieldName('ì‹œë‚˜ë¦¬ì˜¤ëª…').Index;
 		sScenarioNm := cxGridAI_List1.DataController.Values[iRow, iCol];
 		
-		lb_Scenario_Detail.Caption := sScenarioNm + ' ½Ã³ª¸®¿À »ó¼¼ ³»¿ª';
-		Param := sBrNo + '¦¢' + sKeyNumber + '¦¢' + sScenarioNo;
+		lb_Scenario_Detail.Caption := sScenarioNm + ' ì‹œë‚˜ë¦¬ì˜¤ ìƒì„¸ ë‚´ì—­';
+		Param := sBrNo + 'â”‚' + sKeyNumber + 'â”‚' + sScenarioNo;
 
 		if not RequestBase(GetSel06('GET_SCN_LIST', 'AI_OB_MNG.GET_SCN_LIST', '10', Param), XmlData, ErrCode, ErrMsg) then
 		begin
-			GMessagebox(Format('¹èÂ÷Áö¿¬Äİ ½Ã³ª¸®¿À Á¶È¸ ¿À·ù'#13#10'[%d]%s', [ErrCode, ErrMsg]), CDMSI);
+			GMessagebox(Format('ë°°ì°¨ì§€ì—°ì½œ ì‹œë‚˜ë¦¬ì˜¤ ì¡°íšŒ ì˜¤ë¥˜'#13#10'[%d]%s', [ErrCode, ErrMsg]), CDMSI);
 			Exit;
 		end;
 
@@ -1321,21 +1323,21 @@ begin
           try
             for i := 0 to lst_Result.length - 1 do
             begin
-              GetTextSeperationEx2('¦¢', lst_Result.item[i].attributes.getNamedItem('Value').Text, ls_Rcrd);
+              GetTextSeperationEx2('â”‚', lst_Result.item[i].attributes.getNamedItem('Value').Text, ls_Rcrd);
               Application.ProcessMessages;
-              // 0Áö»çÄÚµå ¦¢ 1´ëÇ¥¹øÈ£ ¦¢ 2½Ã³ª¸®¿ÀÄÚµå ¦¢ 3STEP ¦¢ 4STEP¸í ¦¢ 5SEQ ¦¢ 6»ç¿ëÀ¯¹«(y/n) ¦¢7¾È³»¸Ş½ÃÁö ¦¢ 8´äº¯¸Ş½ÃÁö
-              iRow := cxGridAI_List2.DataController.AppendRecord; // 1 Record Ãß°¡
-              cxGridAI_List2.DataController.Values[iRow, 0] := ls_Rcrd[5]; //¼ø¹ø
-              cxGridAI_List2.DataController.Values[iRow, 1] := ls_Rcrd[4]; //´Ü°è
-              cxGridAI_List2.DataController.Values[iRow, 2] := ls_Rcrd[7]; //¾È³»¸Ş¼¼Áö
-              cxGridAI_List2.DataController.Values[iRow, 3] := ls_Rcrd[8]; //´äº¯¸Ş¼¼Áö
-              if ls_Rcrd[6] = 'y' then                                     //	»ç¿ëÀ¯¹«
-              cxGridAI_List2.DataController.Values[iRow, 4] := '»ç¿ë' else cxGridAI_List2.DataController.Values[iRow, 4] := '¹Ì»ç¿ë';
-              cxGridAI_List2.DataController.Values[iRow, 5] := ls_Rcrd[0]; //Áö»çÄÚµå
-              if ls_Rcrd[1] = '00000000' then                              //´ëÇ¥¹øÈ£
+              // 0ì§€ì‚¬ì½”ë“œ â”‚ 1ëŒ€í‘œë²ˆí˜¸ â”‚ 2ì‹œë‚˜ë¦¬ì˜¤ì½”ë“œ â”‚ 3STEP â”‚ 4STEPëª… â”‚ 5SEQ â”‚ 6ì‚¬ìš©ìœ ë¬´(y/n) â”‚7ì•ˆë‚´ë©”ì‹œì§€ â”‚ 8ë‹µë³€ë©”ì‹œì§€
+              iRow := cxGridAI_List2.DataController.AppendRecord; // 1 Record ì¶”ê°€
+              cxGridAI_List2.DataController.Values[iRow, 0] := ls_Rcrd[5]; //ìˆœë²ˆ
+              cxGridAI_List2.DataController.Values[iRow, 1] := ls_Rcrd[4]; //ë‹¨ê³„
+              cxGridAI_List2.DataController.Values[iRow, 2] := ls_Rcrd[7]; //ì•ˆë‚´ë©”ì„¸ì§€
+              cxGridAI_List2.DataController.Values[iRow, 3] := ls_Rcrd[8]; //ë‹µë³€ë©”ì„¸ì§€
+              if ls_Rcrd[6] = 'y' then                                     //	ì‚¬ìš©ìœ ë¬´
+              cxGridAI_List2.DataController.Values[iRow, 4] := 'ì‚¬ìš©' else cxGridAI_List2.DataController.Values[iRow, 4] := 'ë¯¸ì‚¬ìš©';
+              cxGridAI_List2.DataController.Values[iRow, 5] := ls_Rcrd[0]; //ì§€ì‚¬ì½”ë“œ
+              if ls_Rcrd[1] = '00000000' then                              //ëŒ€í‘œë²ˆí˜¸
                 cxGridAI_List2.DataController.Values[iRow, 6] := '' else
                 cxGridAI_List2.DataController.Values[iRow, 6] := StrToCall(ls_Rcrd[1]);
-              cxGridAI_List2.DataController.Values[iRow, 7] := ls_Rcrd[2]; //½Ã³ª¸®¿ÀÄÚµå
+              cxGridAI_List2.DataController.Values[iRow, 7] := ls_Rcrd[2]; //ì‹œë‚˜ë¦¬ì˜¤ì½”ë“œ
               cxGridAI_List2.DataController.Values[iRow, 8] := ls_Rcrd[3]; //step
             end;
           finally
@@ -1421,7 +1423,7 @@ begin
 
 		if not RequestBase(GetSel06('GET_BD_LIST', 'AI_OB_MNG.GET_AI_SCN_LIST', '100', Param), XmlData, ErrCode, ErrMsg) then
 		begin
-			GMessagebox(Format('¹èÂ÷Áö¿¬Äİ ±âº»½Ã³ª¸®¿À ¸®½ºÆ® Á¶È¸ ¿À·ù'#13#10'[%d]%s', [ErrCode, ErrMsg]), CDMSI);
+			GMessagebox(Format('ë°°ì°¨ì§€ì—°ì½œ ê¸°ë³¸ì‹œë‚˜ë¦¬ì˜¤ ë¦¬ìŠ¤íŠ¸ ì¡°íšŒ ì˜¤ë¥˜'#13#10'[%d]%s', [ErrCode, ErrMsg]), CDMSI);
 			Exit;
 		end;
 
@@ -1438,7 +1440,7 @@ begin
 					try
 						for i := 0 to lst_Result.length - 1 do
 						begin
-							GetTextSeperationEx2('¦¢', lst_Result.item[i].attributes.getNamedItem('Value').Text, ls_Rcrd);
+							GetTextSeperationEx2('â”‚', lst_Result.item[i].attributes.getNamedItem('Value').Text, ls_Rcrd);
 
 							gFScenarioNo.Add(ls_Rcrd[0]);
 							gFScenarioNM.Add(ls_Rcrd[1]);
@@ -1474,7 +1476,7 @@ begin
 		Param := ABrNo;
 		if not RequestBase(GetSel06('GET_AI_OUT_KEYNUMBER_LIST', 'AI_OB_MNG.GET_AI_OUT_KEYNUMBER_LIST', '1000', Param), XmlData, ErrCode, ErrMsg) then
 		begin
-			GMessagebox(Format('AI ¾Æ¿ô¹Ù¿îµå ¼³Á¤µÈ ´ëÇ¥¹øÈ£ Á¶È¸ ¿À·ù'#13#10'[%d]%s', [ErrCode, ErrMsg]), CDMSI);
+			GMessagebox(Format('AI ì•„ì›ƒë°”ìš´ë“œ ì„¤ì •ëœ ëŒ€í‘œë²ˆí˜¸ ì¡°íšŒ ì˜¤ë¥˜'#13#10'[%d]%s', [ErrCode, ErrMsg]), CDMSI);
 			Exit;
 		end;
 
@@ -1493,7 +1495,7 @@ begin
 					try
 						for i := 0 to lst_Result.length - 1 do
 						begin
-							GetTextSeperationEx2('¦¢', lst_Result.item[i].attributes.getNamedItem('Value').Text, ls_Rcrd);
+							GetTextSeperationEx2('â”‚', lst_Result.item[i].attributes.getNamedItem('Value').Text, ls_Rcrd);
 
 							gFKeyNumer.Add(ls_Rcrd[0]);
 							gF070KeyNumer.Add(ls_Rcrd[1]);
@@ -1527,7 +1529,7 @@ begin
 		
 		if GT_SEL_BRNO.GUBUN <> '1' then
 		begin
-			GMessagebox(PChar('ÁÂÃøÁö»ç¸¦ ¼±ÅÃÇÏ½Ê½Ã¿À.'), CDMSI);
+			GMessagebox(PChar('ì¢Œì¸¡ì§€ì‚¬ë¥¼ ì„ íƒí•˜ì‹­ì‹œì˜¤.'), CDMSI);
 			proc_BtnEnable(False);
 			Exit;
 		end;
@@ -1535,7 +1537,7 @@ begin
 		try
 			gFKeyNumer.Clear;
 			gF070KeyNumer.Clear;
-			if Not func_GetAIOBKeyNumber(GT_SEL_BRNO.BrNo) then  //AI ¾Æ¿ô¹Ù¿îµå ¼³Á¤µÈ ´ëÇ¥¹øÈ£ 
+			if Not func_GetAIOBKeyNumber(GT_SEL_BRNO.BrNo) then  //AI ì•„ì›ƒë°”ìš´ë“œ ì„¤ì •ëœ ëŒ€í‘œë²ˆí˜¸ 
 			begin
 			{	for I := 0 to scb_DsBranchCode.Count - 1 do
 				begin
@@ -1556,17 +1558,17 @@ begin
 
 		cb_ScenarioA2.Properties.Items.Clear;
 		cb_ScenarioA2.Properties.Items.Assign(gFScenarioNm);
-		cb_ScenarioA2.Properties.Items.Insert(0, 'ÀüÃ¼');
+		cb_ScenarioA2.Properties.Items.Insert(0, 'ì „ì²´');
 		cb_ScenarioA2.ItemIndex := 0;
 
 		cb_KeynumberA2.Properties.Items.Clear;
 		cb_KeynumberA2.Properties.Items.Assign(gFKeyNumer);
-		cb_KeynumberA2.Properties.Items.Insert(0, 'ÀüÃ¼');
+		cb_KeynumberA2.Properties.Items.Insert(0, 'ì „ì²´');
 		cb_KeynumberA2.ItemIndex := 0;
 
 		cb_KeynumberA3.Properties.Items.Clear;
 		cb_KeynumberA3.Properties.Items.Assign(gFKeyNumer);
-		cb_KeynumberA3.Properties.Items.Insert(0, 'ÀüÃ¼');
+		cb_KeynumberA3.Properties.Items.Insert(0, 'ì „ì²´');
 		cb_KeynumberA3.ItemIndex := 0;
 
 		Case cxPageControl1.ActivePageIndex of
@@ -1624,7 +1626,7 @@ begin
 		cxGridAI_List1.Columns[i].DataBinding.ValueType := 'String';
 	cxGridAI_List1.Columns[0].DataBinding.ValueTypeClass := TcxBooleanValueType;
 	cxGridAI_List1.Columns[1].DataBinding.ValueType := 'Integer';
-	i := cxGridAI_List1.GetColumnByFieldName('Ãß°¡¿ä±İ').Index;
+	i := cxGridAI_List1.GetColumnByFieldName('ì¶”ê°€ìš”ê¸ˆ').Index;
 	cxGridAI_List1.Columns[i].DataBinding.ValueType := 'Currency';
 
 	cxGridAI_List2.DataController.SetRecordCount(0);
@@ -1700,15 +1702,15 @@ begin
 	SetDebugeWrite('Tfrm_AIC01.func_ScenarioDelete');
 	try
 		Result := False;
-		Param := '2'; //°³º°»èÁ¦
-		Param := Param + '¦¢' + ABrNo;
-		Param := Param + '¦¢' + AKeyNumber;
-		Param := Param + '¦¢' + AScenario;
+		Param := '2'; //ê°œë³„ì‚­ì œ
+		Param := Param + 'â”‚' + ABrNo;
+		Param := Param + 'â”‚' + AKeyNumber;
+		Param := Param + 'â”‚' + AScenario;
 
 		proc_BtnEnable(False);
 		if not RequestBase(GetCallable06('SET_BD_SAVE', 'AI_OB_MNG.SET_BD_DELETE', param), XmlData, ErrCode, ErrMsg) then
 		begin
-			GMessagebox(Format('¹èÂ÷Áö¿¬Äİ ¼³Á¤ »èÁ¦ ¿À·ù'#13#10'[%d]%s', [ErrCode, ErrMsg]), CDMSI);
+			GMessagebox(Format('ë°°ì°¨ì§€ì—°ì½œ ì„¤ì • ì‚­ì œ ì˜¤ë¥˜'#13#10'[%d]%s', [ErrCode, ErrMsg]), CDMSI);
 			proc_BtnEnable(True);
 			Exit;
 		end;
