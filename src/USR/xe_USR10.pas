@@ -1,5 +1,5 @@
-unit xe_USR10;
-
+ï»¿unit xe_USR10;
+// í—ˆë¸Œí…ŒìŠ¤íŠ¸
 interface
 
 uses
@@ -119,14 +119,14 @@ type
     procedure FormShow(Sender: TObject);
   private
     { Private declarations }
-    procedure proc_Manage_Save(iType: Integer);   // »ç¿ëÀÚ ÀúÀå(iType : 0 : Ãß°¡, 1 : ¼öÁ¤, 2 : »èÁ¦(Á¤Áö))
-		procedure proc_user_Modify(iType: Integer);   // »ç¿ëÀÚ ¸®½ºÆ® ¼öÁ¤(iType : 0 : Ãß°¡, 1 : ¼öÁ¤, 2 : »èÁ¦(Á¤Áö))
+    procedure proc_Manage_Save(iType: Integer);   // ì‚¬ìš©ì ì €ì¥(iType : 0 : ì¶”ê°€, 1 : ìˆ˜ì •, 2 : ì‚­ì œ(ì •ì§€))
+		procedure proc_user_Modify(iType: Integer);   // ì‚¬ìš©ì ë¦¬ìŠ¤íŠ¸ ìˆ˜ì •(iType : 0 : ì¶”ê°€, 1 : ìˆ˜ì •, 2 : ì‚­ì œ(ì •ì§€))
   public
     { Public declarations }
-    tmYN: Boolean;                                // ½Ç¸íÀÎÁõÀ§ÇÑ ½Ç¸í,ÁÖ¹Î¹øÈ£ ÅÛÇÁº¯¼ö
+    tmYN: Boolean;                                // ì‹¤ëª…ì¸ì¦ìœ„í•œ ì‹¤ëª…,ì£¼ë¯¼ë²ˆí˜¸ í…œí”„ë³€ìˆ˜
     tmName, tmNo, tmSNumOrg: string;
 		tmNo1, tmNo2: string;
-    procedure proc_recieve(ls_rxxml: Widestring); // Àü¹® ÀÀ´ä Ã³¸®
+    procedure proc_recieve(ls_rxxml: Widestring); // ì „ë¬¸ ì‘ë‹µ ì²˜ë¦¬
 	end;
 
 var
@@ -145,7 +145,7 @@ Var sMsg : String;
 begin
   if GS_NICE_CHK then
   begin
-		sMsg := 'º»ÀÎÀÎÁõ ÈÄ ¼öÁ¤/ÀúÀå ¾øÀÌ ÃÊ±âÈ­ÇÏ½Ã°Ú½À´Ï±î?';
+		sMsg := 'ë³¸ì¸ì¸ì¦ í›„ ìˆ˜ì •/ì €ì¥ ì—†ì´ ì´ˆê¸°í™”í•˜ì‹œê² ìŠµë‹ˆê¹Œ?';
 		if Application.MessageBox(PChar(sMsg), '', MB_YESNO + MB_ICONINFORMATION) = IDNO then Exit;
   end;
   GS_NICE_CHK := False;
@@ -172,9 +172,9 @@ begin
   cxedId.Enabled := True;
 	cxButton3.Enabled := True;
   cxcbGrad.Enabled := True;
-  cxbModify.Caption := 'ÀúÀå';
+  cxbModify.Caption := 'ì €ì¥';
 	tmYn:=false;
-	pnlTitle.Caption := '   Á÷¿ø ½Å±Ôµî·Ï';
+	pnlTitle.Caption := '   ì§ì› ì‹ ê·œë“±ë¡';
 
 	cxcbUserStatus.ItemIndex := 0;
 end;
@@ -194,7 +194,7 @@ procedure TFrm_USR10.FormCreate(Sender: TObject);
 Var i : Integer;
 begin
   try
-    // ³¯Â¥Çü½ÄÀÌ 'yy/mm/dd'ÀÏ°æ¿ì ¿À·ù ¹ß»ı °¡´É¼ºÀ¸·Î ÀÎÇØ ÀÚÃ¼ Display Æ÷¸Ë º¯°æ
+    // ë‚ ì§œí˜•ì‹ì´ 'yy/mm/dd'ì¼ê²½ìš° ì˜¤ë¥˜ ë°œìƒ ê°€ëŠ¥ì„±ìœ¼ë¡œ ì¸í•´ ìì²´ Display í¬ë§· ë³€ê²½
     for i := 0 to ComponentCount - 1 do
     begin
       if Components[i] is TcxDateEdit then
@@ -255,20 +255,20 @@ begin
 
 	if (GT_USERIF.LV = '10') and (cxcbGrad.ItemIndex <> 2) then
   begin
-		GMessagebox('»ó´ã¿ø ±ÇÇÑÀº »ó´ã¿ø Á÷¿ø¸¸ µî·Ï/¼öÁ¤ °¡´ÉÇÕ´Ï´Ù.', CDMSE);
+		GMessagebox('ìƒë‹´ì› ê¶Œí•œì€ ìƒë‹´ì› ì§ì›ë§Œ ë“±ë¡/ìˆ˜ì • ê°€ëŠ¥í•©ë‹ˆë‹¤.', CDMSE);
     cxcbGrad.SetFocus;
     Exit;
   end;
 
   if (GT_USERIF.LV = '10') and (cxBrNo.Text <> GT_USERIF.BR) then
 	begin
-    GMessagebox('»ó´ã¿ø ±ÇÇÑÀº ¼Ò¼Ó Áö»çÀÇ Á÷¿ø¸¸ °ü¸® °¡´ÉÇÕ´Ï´Ù.', CDMSE);
+    GMessagebox('ìƒë‹´ì› ê¶Œí•œì€ ì†Œì† ì§€ì‚¬ì˜ ì§ì›ë§Œ ê´€ë¦¬ ê°€ëŠ¥í•©ë‹ˆë‹¤.', CDMSE);
     Exit;
   end;
 
   if cxcbGrad.ItemIndex = -1 then
   begin
-    GMessagebox('Á÷¿ø ±×·ìÀ» ¼±ÅÃÇÏ¼¼¿ä.', CDMSE);
+    GMessagebox('ì§ì› ê·¸ë£¹ì„ ì„ íƒí•˜ì„¸ìš”.', CDMSE);
     Exit;
   end;
 
@@ -282,53 +282,53 @@ begin
 			jCheck := func_SoNumCheck(sTemp);
 			if jCheck then
 			begin
-				// ¼öµµ±Ç¸¸ ¿Ü±¹ÀÎ ½Å±Ôµî·Ï ºÒ°¡´É ÇÏµµ·Ï Á¦ÇÑ. 2011.08.01
+				// ìˆ˜ë„ê¶Œë§Œ ì™¸êµ­ì¸ ì‹ ê·œë“±ë¡ ë¶ˆê°€ëŠ¥ í•˜ë„ë¡ ì œí•œ. 2011.08.01
 				if (GS_PRJ_AREA = 'S') and (LeftStr(stSno2, 1) <> '1') and (LeftStr(stSno2, 1) <> '2') then
 				begin
-					GMessagebox('±â»çµî·Ï ºÒ°¡ÇÑ(ÀÓ½Ã°ÅÁÖ Á¦2¿Ü±¹ÀÎ, ¿Ü±¹ÀÎ,, µîµî) ÁÖ¹Î¹øÈ£¸¦ ÀÔ·ÂÇÏ¿´½À´Ï´Ù.', CDMSE);
+					GMessagebox('ê¸°ì‚¬ë“±ë¡ ë¶ˆê°€í•œ(ì„ì‹œê±°ì£¼ ì œ2ì™¸êµ­ì¸, ì™¸êµ­ì¸,, ë“±ë“±) ì£¼ë¯¼ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì˜€ìŠµë‹ˆë‹¤.', CDMSE);
   				Exit;
 				end;
 			end else
       begin
-        GMessagebox('ÁÖ¹Îµî·Ï ¹øÈ£¸¦ Àß¸ø ÀÔ·ÂÇÏ¿´½À´Ï´Ù.', CDMSE);
+        GMessagebox('ì£¼ë¯¼ë“±ë¡ ë²ˆí˜¸ë¥¼ ì˜ëª» ì…ë ¥í•˜ì˜€ìŠµë‹ˆë‹¤.', CDMSE);
 				Exit;
       end;
 		end;  }
 	end else
 	begin
-		GMessagebox('»ı³â¿ùÀÏÀ» Àß¸ø ÀÔ·ÂÇÏ¿´½À´Ï´Ù.', CDMSE);
+		GMessagebox('ìƒë…„ì›”ì¼ì„ ì˜ëª» ì…ë ¥í•˜ì˜€ìŠµë‹ˆë‹¤.', CDMSE);
   	Exit;
 	end;
 
-  // 2015.02.03  º»ÀÎÀÎÁõ°ú »ó°ü¾øÀÌ ÀúÀå °¡´É Ã³¸®
+  // 2015.02.03  ë³¸ì¸ì¸ì¦ê³¼ ìƒê´€ì—†ì´ ì €ì¥ ê°€ëŠ¥ ì²˜ë¦¬
 {	if btnNCert.Enabled then
 	begin
-    GMessagebox('º»ÀÎÀÎÁõÀÌ ¿Ï·áµÇÁö¾Ê¾Ò½À´Ï´Ù.',cdmse);
+    GMessagebox('ë³¸ì¸ì¸ì¦ì´ ì™„ë£Œë˜ì§€ì•Šì•˜ìŠµë‹ˆë‹¤.',cdmse);
 		Exit;
 	end;}
 
 	if ( Not btnNCert.Enabled ) And ( btnNCert.Tag = 99 ) then
   begin
-    if pos('[º»ÀÎÀÎÁõ¼º°ø]', cxmmMemo1.Text) < 1 then
-		cxmmMemo1.Text := '[º»ÀÎÀÎÁõ¼º°ø]' + cxmmMemo1.Text;
+    if pos('[ë³¸ì¸ì¸ì¦ì„±ê³µ]', cxmmMemo1.Text) < 1 then
+		cxmmMemo1.Text := '[ë³¸ì¸ì¸ì¦ì„±ê³µ]' + cxmmMemo1.Text;
   end;
 
-  if cxbModify.Caption = 'ÀúÀå' then
+  if cxbModify.Caption = 'ì €ì¥' then
   begin
     if (cxButton3.Enabled) then
     begin
-      GMessagebox('Áßº¹Ã¼Å© ¹öÆ°À¸·Î ¾ÆÀÌµğ Áßº¹°Ë»ç¸¦ ÇÏ¼¼¿ä', CDMSE);
+      GMessagebox('ì¤‘ë³µì²´í¬ ë²„íŠ¼ìœ¼ë¡œ ì•„ì´ë”” ì¤‘ë³µê²€ì‚¬ë¥¼ í•˜ì„¸ìš”', CDMSE);
     end else
     begin
       if Length(cxedId.Text) < 6 then
       begin
-        GMessagebox('¾ÆÀÌµğ´Â 6ÀÚÀÌ»ó ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù.', CDMSE);
+        GMessagebox('ì•„ì´ë””ëŠ” 6ìì´ìƒ ì…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤.', CDMSE);
         exit;
       end;
       proc_Manage_Save(0);
     end;
   end else
-  if cxbModify.Caption = '¼öÁ¤' then
+  if cxbModify.Caption = 'ìˆ˜ì •' then
 	begin
 		proc_Manage_Save(1);
 	end;
@@ -380,41 +380,41 @@ begin
 	sAddr := cxmmAddr.Text;
 	sMemo := cxmmMemo1.Text;
 
-	Param := inttostr(iType) + '¦¢';
-	Param := Param + sId + '¦¢';
-	Param := Param + sName + '¦¢';
-	Param := Param + sPwd + '¦¢';
-	Param := Param + sSNum + '¦¢';
-	Param := Param + '' + '¦¢';
-	Param := Param + sHp + '¦¢';
-	Param := Param + sTel + '¦¢';
-	Param := Param + sLevel + '¦¢';
-	Param := Param + sAddr + '¦¢';
-	Param := Param + sMemo + '¦¢';
-	Param := Param + En_Coding(GT_USERIF.ID) + '¦¢';
-	Param := Param + sHdNo + '¦¢';
-	Param := Param + sBrNo + '¦¢';
-	Param := Param + sUserStatus + '¦¢';
-	Param := Param + sRegDate + '¦¢';
-	Param := Param + 'Y'  + '¦¢' ;
-	if rb_AdminAPP_Use_Y.Checked = True then Param := Param + 'y' + '¦¢'  //°ü¸®ÀÚ¾Û »ç¿ëÀ¯¹« 2014.03.17 KHS
-																			else Param := Param + 'n' + '¦¢';
+	Param := inttostr(iType) + 'â”‚';
+	Param := Param + sId + 'â”‚';
+	Param := Param + sName + 'â”‚';
+	Param := Param + sPwd + 'â”‚';
+	Param := Param + sSNum + 'â”‚';
+	Param := Param + '' + 'â”‚';
+	Param := Param + sHp + 'â”‚';
+	Param := Param + sTel + 'â”‚';
+	Param := Param + sLevel + 'â”‚';
+	Param := Param + sAddr + 'â”‚';
+	Param := Param + sMemo + 'â”‚';
+	Param := Param + En_Coding(GT_USERIF.ID) + 'â”‚';
+	Param := Param + sHdNo + 'â”‚';
+	Param := Param + sBrNo + 'â”‚';
+	Param := Param + sUserStatus + 'â”‚';
+	Param := Param + sRegDate + 'â”‚';
+	Param := Param + 'Y'  + 'â”‚' ;
+	if rb_AdminAPP_Use_Y.Checked = True then Param := Param + 'y' + 'â”‚'  //ê´€ë¦¬ìì•± ì‚¬ìš©ìœ ë¬´ 2014.03.17 KHS
+																			else Param := Param + 'n' + 'â”‚';
 
-	Param := Param + cxmmMemo2.Text + '¦¢';
+	Param := Param + cxmmMemo2.Text + 'â”‚';
 
-	if rb_AdminAPP_ADD_Use_Y.Checked = True then Param := Param + 'y'  //°ü¸®ÀÚ¾Û ÈŞ´ëÆùÀÎÁõ »ç¿ëÀ¯¹« 2019.06.22 KHS
+	if rb_AdminAPP_ADD_Use_Y.Checked = True then Param := Param + 'y'  //ê´€ë¦¬ìì•± íœ´ëŒ€í°ì¸ì¦ ì‚¬ìš©ìœ ë¬´ 2019.06.22 KHS
 																					else Param := Param + 'n';
 
 	if not RequestBase(GetCallable05('SET_MEMBER', 'MNG_MEMBER.SET_MEMBER', Param), XmlData, ErrCode, ErrMsg) then
 	begin
-		GMessagebox(Format('Á÷¿ø ÀúÀå Áß ¿À·ù¹ß»ı'#13#10'[%d]%s', [ErrCode, ErrMsg]), CDMSE);
+		GMessagebox(Format('ì§ì› ì €ì¥ ì¤‘ ì˜¤ë¥˜ë°œìƒ'#13#10'[%d]%s', [ErrCode, ErrMsg]), CDMSE);
 		Exit;
 	end;
 	if iType = 1 then
 	begin
 		if cxcbUserStatus.ItemIndex = 2 then
 		begin
-			GMessagebox('Á÷¿ø ±Ù¹«»óÅÂ¸¦ [ÈŞ°¡Áß]À¸·Î º¯°æ ÇÏ¿´½À´Ï´Ù.', CDMSI);
+			GMessagebox('ì§ì› ê·¼ë¬´ìƒíƒœë¥¼ [íœ´ê°€ì¤‘]ìœ¼ë¡œ ë³€ê²½ í•˜ì˜€ìŠµë‹ˆë‹¤.', CDMSI);
 			if Assigned(Frm_USR) then
       begin
         Frm_USR.btnSearchA1.Click;
@@ -423,7 +423,7 @@ begin
 		end	else
 		if cxcbUserStatus.ItemIndex = 3 then
 		begin
-			GMessagebox('Á÷¿ø ±Ù¹«»óÅÂ¸¦ [Á¤Áö]·Î º¯°æ ÇÏ¿´½À´Ï´Ù.', CDMSI);
+			GMessagebox('ì§ì› ê·¼ë¬´ìƒíƒœë¥¼ [ì •ì§€]ë¡œ ë³€ê²½ í•˜ì˜€ìŠµë‹ˆë‹¤.', CDMSI);
 			if Assigned(Frm_USR) then
       begin
         Frm_USR.btnSearchA1.Click;
@@ -432,7 +432,7 @@ begin
 		end else
 		if cxcbUserStatus.ItemIndex = 4 then
 		begin
-			GMessagebox('Á÷¿øÀ» ±Ù¹«»óÅÂ¸¦ [Åğ»ç]·Î º¯°æ ÇÏ¿´½À´Ï´Ù.', CDMSI);
+			GMessagebox('ì§ì›ì„ ê·¼ë¬´ìƒíƒœë¥¼ [í‡´ì‚¬]ë¡œ ë³€ê²½ í•˜ì˜€ìŠµë‹ˆë‹¤.', CDMSI);
 			if Assigned(Frm_USR) then
       begin
         Frm_USR.btnSearchA1.Click;
@@ -440,7 +440,7 @@ begin
       end;
 		end else
 		begin
-			GMessagebox('Á÷¿ø Á¤º¸¸¦ ¼öÁ¤ ÇÏ¿´½À´Ï´Ù.', CDMSI);
+			GMessagebox('ì§ì› ì •ë³´ë¥¼ ìˆ˜ì • í•˜ì˜€ìŠµë‹ˆë‹¤.', CDMSI);
 			if Assigned(Frm_USR) then
       begin
         Frm_USR.btnSearchA1.Click;
@@ -450,14 +450,14 @@ begin
 		Hide;
 	end else
 	begin
-		GMessagebox('Á÷¿øÀ»  Ãß°¡ ÇÏ¿´½À´Ï´Ù.', CDMSI);
+		GMessagebox('ì§ì›ì„  ì¶”ê°€ í•˜ì˜€ìŠµë‹ˆë‹¤.', CDMSI);
   	if Assigned(Frm_USR) then
     begin
       Frm_USR.btnSearchA1.Click;
       Frm_USR.btnSearchA4.Click;
     end;
 
-		if GMessagebox('°è¼Ó ´Ù¸¥Á÷¿øÀ» Ãß°¡ÇÏ½Ã°Ú½À´Ï±î?', CDMSQ) = idok then
+		if GMessagebox('ê³„ì† ë‹¤ë¥¸ì§ì›ì„ ì¶”ê°€í•˜ì‹œê² ìŠµë‹ˆê¹Œ?', CDMSQ) = idok then
 		begin
 			cxbNewUserClick(cxbNewUser);
 		end	else
@@ -483,11 +483,11 @@ begin
             sMsg := GetXmlErrorMsg(ls_rxxml);
             if ('0000' = ls_Msg_Err) and ('1' = sMsg) then
             begin
-							GMessagebox('Á÷¿øÀ» Ãß°¡ ÇÏ¿´½À´Ï´Ù.', CDMSI);
+							GMessagebox('ì§ì›ì„ ì¶”ê°€ í•˜ì˜€ìŠµë‹ˆë‹¤.', CDMSI);
 		  				proc_user_Modify(0);
 
-              // Àü¹® Ã³¸® °á°ú ¿¡·¯Ã³¸® Ãß°¡ ÇÒ °Í.
-							if GMessagebox('°è¼Ó ´Ù¸¥Á÷¿øÀ» Ãß°¡ÇÏ½Ã°Ú½À´Ï±î?', CDMSQ) =
+              // ì „ë¬¸ ì²˜ë¦¬ ê²°ê³¼ ì—ëŸ¬ì²˜ë¦¬ ì¶”ê°€ í•  ê²ƒ.
+							if GMessagebox('ê³„ì† ë‹¤ë¥¸ì§ì›ì„ ì¶”ê°€í•˜ì‹œê² ìŠµë‹ˆê¹Œ?', CDMSQ) =
 		  					idok then
 		  				begin
 		  					cxbNewUserClick(cxbNewUser);
@@ -498,7 +498,7 @@ begin
             begin
 							if Pos('{',ls_Msg_Err) > 0 then
               begin
-		  					// ¼­¹ö ¸Ş½ÃÁö°¡ "{ }" ·Î ¹­¿©¼­ ³Ñ¾î¿À¹Ç·Î "{ }" ·Î Àß¶ó¼­ »ç¿ëÇÔ. 2011-09-28
+		  					// ì„œë²„ ë©”ì‹œì§€ê°€ "{ }" ë¡œ ë¬¶ì—¬ì„œ ë„˜ì–´ì˜¤ë¯€ë¡œ "{ }" ë¡œ ì˜ë¼ì„œ ì‚¬ìš©í•¨. 2011-09-28
 		  					sMsg := Copy(ls_Msg_Err, Pos('{',ls_Msg_Err) +1, Pos('}',ls_Msg_Err) - Pos('{',ls_Msg_Err) -1);
 								GMessagebox(sMsg, CDMSE);
 		  				end else
@@ -513,14 +513,14 @@ begin
             sMsg := GetXmlErrorMsg(ls_rxxml);
             if ('0000' = ls_Msg_Err) and ('1' = sMsg) then
             begin
-							GMessagebox('Á÷¿øÀ» ¼öÁ¤ ÇÏ¿´½À´Ï´Ù.', CDMSI);
+							GMessagebox('ì§ì›ì„ ìˆ˜ì • í•˜ì˜€ìŠµë‹ˆë‹¤.', CDMSI);
 		  				proc_user_Modify(1);
 		  				Hide;
 		  			end else
             begin
               if Pos('{',ls_Msg_Err) > 0 then
               begin
-                // ¼­¹ö ¸Ş½ÃÁö°¡ "{ }" ·Î ¹­¿©¼­ ³Ñ¾î¿À¹Ç·Î "{ }" ·Î Àß¶ó¼­ »ç¿ëÇÔ. 2011-09-28
+                // ì„œë²„ ë©”ì‹œì§€ê°€ "{ }" ë¡œ ë¬¶ì—¬ì„œ ë„˜ì–´ì˜¤ë¯€ë¡œ "{ }" ë¡œ ì˜ë¼ì„œ ì‚¬ìš©í•¨. 2011-09-28
 		  					sMsg := Copy(ls_Msg_Err, Pos('{',ls_Msg_Err) +1, Pos('}',ls_Msg_Err) - Pos('{',ls_Msg_Err) -1);
 								GMessagebox(sMsg, CDMSE);
               end else
@@ -535,14 +535,14 @@ begin
             sMsg := GetXmlErrorMsg(ls_rxxml);
             if ('0000' = ls_Msg_Err) and ('1' = sMsg) then
             begin
-							GMessagebox('Á÷¿øÀ» Á¤Áö ÇÏ¿´½À´Ï´Ù.', CDMSI);
+							GMessagebox('ì§ì›ì„ ì •ì§€ í•˜ì˜€ìŠµë‹ˆë‹¤.', CDMSI);
 		  				proc_user_Modify(2);
               Hide;
             end else
             begin
               if Pos('{',ls_Msg_Err) > 0 then
               begin
-                // ¼­¹ö ¸Ş½ÃÁö°¡ "{ }" ·Î ¹­¿©¼­ ³Ñ¾î¿À¹Ç·Î "{ }" ·Î Àß¶ó¼­ »ç¿ëÇÔ. 2011-09-28
+                // ì„œë²„ ë©”ì‹œì§€ê°€ "{ }" ë¡œ ë¬¶ì—¬ì„œ ë„˜ì–´ì˜¤ë¯€ë¡œ "{ }" ë¡œ ì˜ë¼ì„œ ì‚¬ìš©í•¨. 2011-09-28
                 sMsg := Copy(ls_Msg_Err, Pos('{',ls_Msg_Err) +1, Pos('}',ls_Msg_Err) - Pos('{',ls_Msg_Err) -1);
 								GMessagebox(sMsg, CDMSE);
               end else
@@ -555,12 +555,12 @@ begin
 		  		begin
             if (0 < GetXmlRecordCount(ls_rxxml)) then
             begin
-							GMessagebox('»ç¿ëÇÒ¼ö ¾ø´Â ¾ÆÀÌµğ ÀÔ´Ï´Ù.' + #13#10 +
-                          '´Ù¸¥ ¾ÆÀÌµğ¸¦ »ç¿ëÇÏ¼¼¿ä.', CDMSE);
+							GMessagebox('ì‚¬ìš©í• ìˆ˜ ì—†ëŠ” ì•„ì´ë”” ì…ë‹ˆë‹¤.' + #13#10 +
+                          'ë‹¤ë¥¸ ì•„ì´ë””ë¥¼ ì‚¬ìš©í•˜ì„¸ìš”.', CDMSE);
               cxButton3.Enabled := True;
             end else
             begin
-							GMessagebox('»ç¿ë°¡´ÉÇÑ ¾ÆÀÌµğ ÀÔ´Ï´Ù.', CDMSI);
+							GMessagebox('ì‚¬ìš©ê°€ëŠ¥í•œ ì•„ì´ë”” ì…ë‹ˆë‹¤.', CDMSI);
               cxButton3.Enabled := False;
             end;
           end;
@@ -578,7 +578,7 @@ var
     iHdNo, iPwd, iNum, iAddr, iMemo, iRegDate: Integer;
   sId, sTemp: string;
 begin
-	// ( tag : 0 : »ç¿ëÀÚ °ü¸®¿¡¼­ »ç¿ëÀÚ Ãß°¡ÇÑ °æ¿ì, 1 : ..)
+	// ( tag : 0 : ì‚¬ìš©ì ê´€ë¦¬ì—ì„œ ì‚¬ìš©ì ì¶”ê°€í•œ ê²½ìš°, 1 : ..)
   case self.Tag of
     0:
       begin
@@ -587,21 +587,21 @@ begin
           with Frm_USR do
           begin
             iNo := cxMngUserList.GetColumnByFieldName('No.').Index;
-            iBrNo := cxMngUserList.GetColumnByFieldName('Áö»çÄÚµå').Index;
-            iBrName := cxMngUserList.GetColumnByFieldName('Áö»ç¸í').Index;
-            iLevel := cxMngUserList.GetColumnByFieldName('Á÷¿ø±×·ì').Index;
-            iId := cxMngUserList.GetColumnByFieldName('¾ÆÀÌµğ').Index;
-            iUserName := cxMngUserList.GetColumnByFieldName('Á÷¿ø¸í').Index;
-            iHp := cxMngUserList.GetColumnByFieldName('ÇÚµåÆù¹øÈ£').Index;
-            iTel := cxMngUserList.GetColumnByFieldName('¿¬¶ôÃ³').Index;
-				  	iUserStatus := cxMngUserList.GetColumnByFieldName('±Ù¹«»óÅÂ').Index;
-				  	iDate := cxMngUserList.GetColumnByFieldName('µî·ÏÀÏÀÚ').Index;
-            iHdNo := cxMngUserList.GetColumnByFieldName('º»»çÄÚµå').Index;
-				  	iPwd := cxMngUserList.GetColumnByFieldName('ÆĞ½º¿öµå').Index;
-            iNum := cxMngUserList.GetColumnByFieldName('ÁÖ¹Îµî·Ï¹øÈ£').Index;
-				  	iAddr := cxMngUserList.GetColumnByFieldName('ÁÖ¼Ò').Index;
-            iMemo := cxMngUserList.GetColumnByFieldName('¸Ş¸ğ').Index;
-            iRegDate := cxMngUserList.GetColumnByFieldName('ÀÔ»çÀÏ').Index;
+            iBrNo := cxMngUserList.GetColumnByFieldName('ì§€ì‚¬ì½”ë“œ').Index;
+            iBrName := cxMngUserList.GetColumnByFieldName('ì§€ì‚¬ëª…').Index;
+            iLevel := cxMngUserList.GetColumnByFieldName('ì§ì›ê·¸ë£¹').Index;
+            iId := cxMngUserList.GetColumnByFieldName('ì•„ì´ë””').Index;
+            iUserName := cxMngUserList.GetColumnByFieldName('ì§ì›ëª…').Index;
+            iHp := cxMngUserList.GetColumnByFieldName('í•¸ë“œí°ë²ˆí˜¸').Index;
+            iTel := cxMngUserList.GetColumnByFieldName('ì—°ë½ì²˜').Index;
+				  	iUserStatus := cxMngUserList.GetColumnByFieldName('ê·¼ë¬´ìƒíƒœ').Index;
+				  	iDate := cxMngUserList.GetColumnByFieldName('ë“±ë¡ì¼ì').Index;
+            iHdNo := cxMngUserList.GetColumnByFieldName('ë³¸ì‚¬ì½”ë“œ').Index;
+				  	iPwd := cxMngUserList.GetColumnByFieldName('íŒ¨ìŠ¤ì›Œë“œ').Index;
+            iNum := cxMngUserList.GetColumnByFieldName('ì£¼ë¯¼ë“±ë¡ë²ˆí˜¸').Index;
+				  	iAddr := cxMngUserList.GetColumnByFieldName('ì£¼ì†Œ').Index;
+            iMemo := cxMngUserList.GetColumnByFieldName('ë©”ëª¨').Index;
+            iRegDate := cxMngUserList.GetColumnByFieldName('ì…ì‚¬ì¼').Index;
             case iType of
               0:
                 begin
@@ -754,7 +754,7 @@ Var sMsg : String;
 begin
   if GS_NICE_CHK then
   begin
-		sMsg := 'º»ÀÎÀÎÁõ ÈÄ ¼öÁ¤/ÀúÀå ¾øÀÌ Á¾·áÇÏ½Ã°Ú½À´Ï±î?';
+		sMsg := 'ë³¸ì¸ì¸ì¦ í›„ ìˆ˜ì •/ì €ì¥ ì—†ì´ ì¢…ë£Œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?';
     if Application.MessageBox(PChar(sMsg), '', MB_YESNO + MB_ICONINFORMATION) = IDNO then Exit;
   end;
   GS_NICE_CHK := False;
@@ -776,7 +776,7 @@ begin
   sId := cxedId.Text;
   if Length(sId) < 6 then
   begin
-		GMessagebox('¾ÆÀÌµğ´Â 6ÀÚÀÌ»ó ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù.', CDMSE);
+		GMessagebox('ì•„ì´ë””ëŠ” 6ìì´ìƒ ì…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤.', CDMSE);
     exit;
   end;
   ls_TxLoad := GTx_UnitXmlLoad('SEL01.XML');
@@ -833,22 +833,22 @@ var
   tmpStr: string;
   tmParam: string;
 begin
-  // 2011.09.27 Ãß°¡. »ó´ã¿ø ¶Ç´Â Áö»ç°ü¸®ÀÚ°¡ º»»ç°ü¸®ÀÚ¸¦ »ı¼ºÇÒ ¼ö ¾ø´Ù.
-  if cxbModify.Caption = 'ÀúÀå' then
+  // 2011.09.27 ì¶”ê°€. ìƒë‹´ì› ë˜ëŠ” ì§€ì‚¬ê´€ë¦¬ìê°€ ë³¸ì‚¬ê´€ë¦¬ìë¥¼ ìƒì„±í•  ìˆ˜ ì—†ë‹¤.
+  if cxbModify.Caption = 'ì €ì¥' then
   begin
     if (cxcbGrad.itemindex = 0) and (GT_USERIF.LV <= '40') then
     begin
-			GMessagebox('Áö»ç°ü¸®ÀÚ ¶Ç´Â »ó´ã¿øÀº º»»ç°ü¸®ÀÚ¸¦ »ı¼º ÇÒ ¼ö ¾ø½À´Ï´Ù.',CDMSE);
+			GMessagebox('ì§€ì‚¬ê´€ë¦¬ì ë˜ëŠ” ìƒë‹´ì›ì€ ë³¸ì‚¬ê´€ë¦¬ìë¥¼ ìƒì„± í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.',CDMSE);
       exit;
     end else
     if (cxcbGrad.itemindex = 1) and (GT_USERIF.LV <= '10') then
     begin
-			GMessagebox('»ó´ã¿øÀº Áö»ç°ü¸®ÀÚ¸¦ »ı¼º ÇÒ ¼ö ¾ø½À´Ï´Ù.',CDMSE);
+			GMessagebox('ìƒë‹´ì›ì€ ì§€ì‚¬ê´€ë¦¬ìë¥¼ ìƒì„± í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.',CDMSE);
       exit;
 		end;
 	end;
 
-  // 2011.03.03 Äİ¼¾ÅÍÃ¼Å© ¿À·ù¼öÁ¤ [»ó´ã¿ø µî·Ï ÀÏ°æ¿ì..]
+  // 2011.03.03 ì½œì„¼í„°ì²´í¬ ì˜¤ë¥˜ìˆ˜ì • [ìƒë‹´ì› ë“±ë¡ ì¼ê²½ìš°..]
 	if (cxcbGrad.ItemIndex = 2) then
 	begin
     try
@@ -859,7 +859,7 @@ begin
 
       if not RequestBase(GetCallable05('chk_brcallcenter_yn', 'cas.chk_brcallcenter_yn', tmParam), XmlData, ErrCode, ErrMsg) then
       begin
-				GMessagebox('Äİ¼¾ÅÍÀ¯¹«Á¶È¸Áß ¿À·ù°¡ ¹ß»ıÇß½À´Ï´Ù.',CDMSE);
+				GMessagebox('ì½œì„¼í„°ìœ ë¬´ì¡°íšŒì¤‘ ì˜¤ë¥˜ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤.',CDMSE);
         cxcbGrad.ItemIndex := -1;
         Exit;
       end;
@@ -875,11 +875,11 @@ begin
         tmpStr:='X';
       if tmpStr<>'Y' then
       begin
-				GMessagebox('Äİ¼¾ÅÍÀÎ Áö»ç¿¡¼­¸¸ »ó´ã¿øÀ» µî·Ï ÇÒ ¼ö ÀÖ½À´Ï´Ù.', CDMSE);
+				GMessagebox('ì½œì„¼í„°ì¸ ì§€ì‚¬ì—ì„œë§Œ ìƒë‹´ì›ì„ ë“±ë¡ í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.', CDMSE);
         cxcbGrad.ItemIndex := -1;
       end;
     except
-      GMessagebox('Äİ¼¾ÅÍÀ¯¹«Á¶È¸Áß ¿À·ù°¡ ¹ß»ıÇß½À´Ï´Ù.',CDMSE);
+      GMessagebox('ì½œì„¼í„°ìœ ë¬´ì¡°íšŒì¤‘ ì˜¤ë¥˜ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤.',CDMSE);
       cxcbGrad.ItemIndex := -1;
       Exit;
     end;
@@ -889,10 +889,10 @@ end;
 procedure TFrm_USR10.btnNCertClick(Sender: TObject);
 Var sMsg, slBrNo : String;
 begin
-  sMsg := 'º»ÀÎÀÎÁõ ¼­ºñ½º ÀÌ¿ë½Ã(ÀÎÁõ½ÇÆĞ½Ã¿¡µµ) 60¿øÀÇ ÀÌ¿ë·á°¡ ¹ß»ıÇÕ´Ï´Ù.' + #13 +
-          '(Áö»çÄ³½¬¿¡¼­ Â÷°¨)' + #13 +
-            'º»ÀÎÀÎÁõ ¼­ºñ½º¸¦ ÀÌ¿ëÇÏ½Ã°Ú½À´Ï±î?' + #13#13 +
-          '¡Ø º»ÀÎÀÎÁõÈÄ¿¡´Â Áö»çÁ¤º¸ "ÀúÀå/¼öÁ¤" ¹öÆ°À» ²À ´©¸£¼Å¾ß Á¤»óÃ³¸®µË´Ï´Ù.';
+  sMsg := 'ë³¸ì¸ì¸ì¦ ì„œë¹„ìŠ¤ ì´ìš©ì‹œ(ì¸ì¦ì‹¤íŒ¨ì‹œì—ë„) 60ì›ì˜ ì´ìš©ë£Œê°€ ë°œìƒí•©ë‹ˆë‹¤.' + #13 +
+          '(ì§€ì‚¬ìºì‰¬ì—ì„œ ì°¨ê°)' + #13 +
+            'ë³¸ì¸ì¸ì¦ ì„œë¹„ìŠ¤ë¥¼ ì´ìš©í•˜ì‹œê² ìŠµë‹ˆê¹Œ?' + #13#13 +
+          'â€» ë³¸ì¸ì¸ì¦í›„ì—ëŠ” ì§€ì‚¬ì •ë³´ "ì €ì¥/ìˆ˜ì •" ë²„íŠ¼ì„ ê¼­ ëˆ„ë¥´ì…”ì•¼ ì •ìƒì²˜ë¦¬ë©ë‹ˆë‹¤.';
 
   if Application.MessageBox(PChar(sMsg), '', MB_YESNO + MB_ICONINFORMATION) = IDNO then Exit;
 
@@ -900,7 +900,7 @@ begin
 
   if fGetBrCash(slBrNo) < 60 then
   begin
-    ShowMessage('Áö»ç Ä³½¬ ÀÜ¾×ÀÌ ºÎÁ·ÇÏ¿© º»ÀÎ ÀÎÁõ ¼­ºñ½º¸¦ ÀÌ¿ëÇÒ ¼ö ¾ø½À´Ï´Ù');
+    ShowMessage('ì§€ì‚¬ ìºì‰¬ ì”ì•¡ì´ ë¶€ì¡±í•˜ì—¬ ë³¸ì¸ ì¸ì¦ ì„œë¹„ìŠ¤ë¥¼ ì´ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤');
     Exit;
   end;
 
@@ -916,13 +916,13 @@ begin
 			cxedName.Text := GS_NICE_Name;
       cxedNo1.Text := Copy(GS_NICE_Birth, 3, 6);
 
-{      ShowMessage('¼º¸í : ' + GS_NICE_Name + #13#10 +
-                  '»ı³â¿ùÀÏ : ' + GS_NICE_Birth + #13#10 +
-                  '¼ºº° : ' + GS_NICE_Sex + #13#10 +
-                  'º»ÀÎÀÎÁõ ¼º°ø');}
+{      ShowMessage('ì„±ëª… : ' + GS_NICE_Name + #13#10 +
+                  'ìƒë…„ì›”ì¼ : ' + GS_NICE_Birth + #13#10 +
+                  'ì„±ë³„ : ' + GS_NICE_Sex + #13#10 +
+                  'ë³¸ì¸ì¸ì¦ ì„±ê³µ');}
 
-      ShowMessage('NICEÆò°¡Á¤º¸ º»ÀÎÀÎÁõ ¼º°ø' + #13#10 +
-                  '¼öÁ¤ ¹× ÀúÀåÀ» ÇØÁÖ¼¼¿ä');
+      ShowMessage('NICEí‰ê°€ì •ë³´ ë³¸ì¸ì¸ì¦ ì„±ê³µ' + #13#10 +
+                  'ìˆ˜ì • ë° ì €ì¥ì„ í•´ì£¼ì„¸ìš”');
 
       btnNCert.Tag := 99;
       btnNCert.Enabled := False;
@@ -930,7 +930,7 @@ begin
     begin
       btnNCert.Tag := 0;
       if GS_NICE_Err <> '' then
-        ShowMessage('NICEÆò°¡Á¤º¸ º»ÀÎÀÎÁõ ½ÇÆĞ : ' + GS_NICE_Err);
+        ShowMessage('NICEí‰ê°€ì •ë³´ ë³¸ì¸ì¸ì¦ ì‹¤íŒ¨ : ' + GS_NICE_Err);
 		end;
   end;
 end;

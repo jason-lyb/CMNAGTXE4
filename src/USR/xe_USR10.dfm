@@ -14,7 +14,6 @@ object Frm_USR10: TFrm_USR10
   Font.Name = #44404#47548#52404
   Font.Style = []
   FormStyle = fsStayOnTop
-  OldCreateOrder = False
   Position = poMainFormCenter
   Scaled = False
   OnActivate = FormActivate
@@ -830,8 +829,6 @@ object Frm_USR10: TFrm_USR10
           object rb_AdminAPP_Use_Y: TcxRadioButton
             Left = 4
             Top = 4
-            Width = 46
-            Height = 20
             Caption = #49324#50857
             Enabled = False
             TabOrder = 0
@@ -844,8 +841,6 @@ object Frm_USR10: TFrm_USR10
           object rb_AdminAPP_Use_N: TcxRadioButton
             Left = 56
             Top = 4
-            Width = 58
-            Height = 20
             Caption = #48120#49324#50857
             Enabled = False
             TabOrder = 1
@@ -893,8 +888,6 @@ object Frm_USR10: TFrm_USR10
             object rb_AdminAPP_ADD_Use_Y: TcxRadioButton
               Left = 0
               Top = 2
-              Width = 46
-              Height = 20
               Caption = #49324#50857
               Enabled = False
               TabOrder = 0
@@ -906,8 +899,6 @@ object Frm_USR10: TFrm_USR10
             object rb_AdminAPP_ADD_Use_N: TcxRadioButton
               Left = 52
               Top = 2
-              Width = 58
-              Height = 20
               Caption = #48120#49324#50857
               Checked = True
               Enabled = False
@@ -1037,8 +1028,8 @@ object Frm_USR10: TFrm_USR10
           Width = 60
         end
         object cxLabel11: TcxLabel
-          Left = 137
-          Top = 135
+          Left = 136
+          Top = 134
           Caption = '-'
           ParentColor = False
           ParentFont = False
